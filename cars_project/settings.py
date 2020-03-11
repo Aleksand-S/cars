@@ -78,9 +78,12 @@ DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cars_project',
-        'USER': 'postgres',
-        'PASSWORD': 'coderslab',
+        # 'NAME': 'cars_project',
+        'NAME': 'car_searcher',
+        # 'USER': 'postgres',
+        'USER': 'user1',
+        # 'PASSWORD': 'coderslab',
+        'PASSWORD': 'user1',
     }
 }
 

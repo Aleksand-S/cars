@@ -22,14 +22,14 @@ from c_s_app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', CamerasRequest.as_view(), name='index'),
-    # path('cam_request/', CamerasRequest.as_view(), name='cam_request'),
-    path('cam_request/<int:request_id>/', CamerasRequestProgress.as_view()),
-    path('request_result/<int:request_id>/', RequestResultView.as_view()),
-    path('requests_list/', RequestsListView.as_view()),
-    path('car_search/', CarSearchView.as_view()),
-
-
-    path('ajax/progress/', progress),
+    # path('index/', CamerasRequest.as_view(), name='index'),
+    # # path('cam_request/', CamerasRequest.as_view(), name='cam_request'),
+    # path('cam_request/<int:request_id>/', CamerasRequestProgress.as_view()),
+    # path('request_result/<int:request_id>/', RequestResultView.as_view()),
+    # path('requests_list/', RequestsListView.as_view()),
+    # path('car_search/', CarSearchView.as_view()),
+    #
+    #
+    # path('ajax/progress/', progress),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
