@@ -108,10 +108,12 @@ def progress(request):
 
 class RequestResultView(View):
     def get(self, request, request_id):
-        request_id = 1  # пока для тестирования берем только Request pk=27
+        request_id = 27  # пока для тестирования берем только Request pk=27
         request_obj = get_object_or_404(Request, pk=request_id)
-        results_objs = request_obj.resultdeepstream_set.all()
-        return render(request, 'c_s_app/request_result.html', {'request_results': results_objs})
+        results_objs = request_obj.resultdeepstream_set.all().order_by('pk')
+        return render(request,
+                      'c_s_app/request_result.html',
+                      {'request_results': results_objs, 'request_obj': request_obj})
 
 
 class RequestsListView(View):
