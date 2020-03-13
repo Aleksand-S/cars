@@ -355,12 +355,19 @@
 {#                                                <a href="/media/{{ result.car_photo }}" target="_blank">фото</a>#}
 
 
+{#                                                <a class="myLinkModal" href="#">фото</a>#}
+{#                                                <div id="myModal">#}
+{#                                                    <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="900"></p>#}
+{#                                                    <span id="myModal__close" class="close">ₓ</span>#}
+{#                                                </div>#}
+{#                                                <div id="myOverlay"></div>#}
+
                                                 <a class="myLinkModal" href="#">фото</a>
-                                                <div id="myModal">
+                                                <div class="myModal">
                                                     <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="900"></p>
-                                                    <span id="myModal__close" class="close">ₓ</span>
+                                                    <span class="close myModal__close">ₓ</span>
                                                 </div>
-                                                <div id="myOverlay"></div>
+                                                <div class="myOverlay"></div>
 
 
 
@@ -368,12 +375,25 @@
                                             <td>
 {#                                                <a href="/media/{{ result.car_photo }}" target="_blank">видео</a>#}
 
-                                                <a class="myLinkModal" href="#">фото</a>
-                                                <div id="myModal">
-                                                    <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="900"></p>
-                                                    <span id="myModal__close" class="close">ₓ</span>
+{#                                                <a class="myLinkModal" href="#">видео</a>#}
+{#                                                <div id="myModal">#}
+{#                                                    <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="900"></p>#}
+{#                                                    <span id="myModal__close" class="close">ₓ</span>#}
+{#                                                </div>#}
+{#                                                <div id="myOverlay"></div>#}
+
+                                                <a class="myLinkModal" href="#">видео</a>
+                                                <div class="myModal videoModal">
+                                                    <p>
+{#                                                        <video src="/media/{{ result.car_video }}" alt="видео" width="400"></video>#}
+                                                        <video width='700' controls>
+                                                            <source src='/media/{{ result.car_video }}' type='video/mp4'>
+                                                            Your browser does not support the video tag.
+                                                        </video>
+                                                    </p>
+                                                    <span class="close myModal__close">ₓ</span>
                                                 </div>
-                                                <div id="myOverlay"></div>
+                                                <div class="myOverlay"></div>
 
 
                                             </td>

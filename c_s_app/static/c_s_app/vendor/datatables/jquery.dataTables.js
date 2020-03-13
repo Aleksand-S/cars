@@ -1748,6 +1748,7 @@
 			// sZeroRecords - assuming that is given.
 			if ( ! lang.sEmptyTable && zeroRecords &&
 				defaults.sEmptyTable === "No data available in table" )
+				// defaults.sEmptyTable === "в запрошенном отрезке времени обработанных данных нет" )
 			{
 				_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 			}
@@ -11434,8 +11435,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
-	
+			// "sEmptyTable": "No data available in table",
+			"sEmptyTable": "в запрошенном отрезке времени обработанных данных нет",
+
 	
 			/**
 			 * This string gives information to the end user about the information
@@ -11466,7 +11468,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Показаны с _START_ по _END_ из _TOTAL_",
 	
 	
 			/**
@@ -11627,7 +11629,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Показать _MENU_ результатов",
 	
 	
 			/**
@@ -11707,7 +11709,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Поиск:",
 	
 	
 			/**

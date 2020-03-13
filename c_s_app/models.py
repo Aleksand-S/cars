@@ -29,3 +29,4 @@ class ResultDeepstream(models.Model):
     car_color = models.CharField(max_length=32)
     probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     car_photo = models.ImageField(upload_to='images/')
+    car_video = models.FileField(upload_to='videos/', null=True)
