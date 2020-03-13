@@ -152,3 +152,7 @@ class CarSearchView(View):
 
         return render(request, 'c_s_app/car_search.html', {'form': form_search})
 
+class EmptyView(View):
+    def get(self, request):
+        return render(request, 'c_s_app/emty_page.html')
+

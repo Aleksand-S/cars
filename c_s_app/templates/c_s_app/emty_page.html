@@ -14,11 +14,14 @@
     <title>City AI_v1.0. Модуль для поиска угнанных автомобилей | Discoperi</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{% static 'c_s_app/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'c_s_app/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="{% static 'c_s_app/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'c_s_app/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'c_s_app/vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
 
 </head>
 
@@ -177,78 +180,112 @@
             </nav>
             <!-- End of Topbar -->
 
-
-
-
-
-
-
-
-
-
-
-
-
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <!-- Page Heading -->
+                {#          <h1 class="h3 mb-2 text-gray-800">Tables</h1>#}
+                {#          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>#}
 
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <a href="/car_search" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </span>
-                                    <span class="text">Поиск автомобилей по параметрам</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+{#                    <div class="card-header py-3">#}
+{#                        <h6 class="m-0 font-weight-bold text-primary">Найти авто в базе</h6>#}
+{##}
+{#                        <form method="post">#}
+{#                            {% csrf_token %}#}
+{##}
+{#                            <div class="dropdown mb-4">#}
+{#                                <div>#}
+{##}
+{#                                    {{ form.car_number.errors }}#}
+{#                                    <label for="{{ form.car_number.id_for_label }}"></label>#}
+{#                                    {{ form.car_number }}#}
+{##}
+{#                                    {{ form.car_brand.errors }}#}
+{#                                    <label for="{{ form.car_brand.id_for_label }}"></label>#}
+{#                                    {{ form.car_brand }}#}
+{##}
+{#                                    {{ form.car_color.errors }}#}
+{#                                    <label for="{{ form.car_color.id_for_label }}"></label>#}
+{#                                    {{ form.car_color }}#}
+{##}
+{#                                    <input class="btn btn-primary" type="submit" value="Начать поиск">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+{##}
+{#                    </div>#}
 
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Результаты запросов</h6>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th>ID запроса</th>
-                                        <th>Дата</th>
-                                        <th>Время</th>
-                                        <th>Камеры</th>
-                                        <th>Начало поиска</th>
-                                        <th>Конец поиска</th>
-                                        <th>Прогресс обработки</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr>
-                                        <td id="request_id"><a href="/request_result/{{ cameras_request_obj.pk }}">{{ cameras_request_obj.pk }}</a></td>
-                                        <td>{{ cameras_request_obj.request_time|date:"d.m.Y" }}</td>
-                                        <td>{{ cameras_request_obj.request_time|date:"h:i:s" }}</td>
-                                        <td>
-                                            {% for cam in cameras_request_obj.cameras.all %}
-                                                <a>{{ cam.address }}</a><br>
-                                            {% endfor %}
-                                        </td>
-                                        <td>{{ cameras_request_obj.start|date:"d.m.Y h:i" }}</td>
-                                        <td>{{ cameras_request_obj.finish|date:"d.m.Y h:i" }}</td>
-                                        <td id="progress">{{ progress }} %</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+{#                    <div class="card-body">#}
+{#                        <div class="table-responsive">#}
+{#                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">#}
+{#                                <thead>#}
+{#                                <tr>#}
+{#                                    <th>Время</th>#}
+{#                                    <th>Адрес</th>#}
+{#                                    <th>Номер</th>#}
+{#                                    <th>Марка</th>#}
+{#                                    <th>Модель</th>#}
+{#                                    <th>Пок-е</th>#}
+{#                                    <th>%</th>#}
+{#                                    <th>Цвет</th>#}
+{#                                    <th>%</th>#}
+{#                                    <th>Фото</th>#}
+{#                                    <th>Видео</th>#}
+{#                                </tr>#}
+{#                                </thead>#}
+                                {#                  <tfoot>#}
+                                {#                    <tr>#}
+                                {#                      <th>Начало поиска</th>#}
+                                {#                      <th>Конец поиска</th>#}
+                                {#                      <th>Прогресс обработки</th>#}
+                                {#                    </tr>#}
+                                {#                  </tfoot>#}
+{#                                <tbody>#}
+{#                                {% for resul in search_results %}#}
+{#                                    <tr>#}
+{#                                        <td>{{ resul.timestamp|date:"d.m.Y h:i" }}</td>#}
+{#                                        <td>{{ resul.camera.address }}</td>#}
+{#                                        <td>{{ resul.car_number }}</td>#}
+{#                                        <td>{{ resul.car_brand }}</td>#}
+{#                                        <td>model</td>#}
+{#                                        <td>generation</td>#}
+{#                                        <td>97</td>#}
+{#                                        <td>{{ resul.car_color }}</td>#}
+{#                                        <td>98</td>#}
+{#                                        <td>#}
+{#                                            <a href="/media/{{ resul.car_photo }}" target="_blank">фото</a>#}
+{##}
+{#                                            <a class="myLinkModal" href="#">фото</a>#}
+{#                                            <div id="myModal">#}
+{#                                                <p><img src="/media/{{ resul.car_photo }}" alt="изображение" width="900"></p>#}
+{#                                                <span id="myModal__close" class="close">ₓ</span>#}
+{#                                            </div>#}
+{#                                            <div id="myOverlay"></div>#}
+{##}
+{##}
+{#                                        </td>#}
+{#                                        <td>#}
+{#                                            <a href="/media/{{ resul.car_photo }}" target="_blank">видео</a>#}
+{##}
+{#                                            <a class="myLinkModal" href="#">фото</a>#}
+{#                                            <div id="myModal">#}
+{#                                                <p><img src="/media/{{ resul.car_photo }}" alt="изображение" width="900"></p>#}
+{#                                                <span id="myModal__close" class="close">ₓ</span>#}
+{#                                            </div>#}
+{#                                            <div id="myOverlay"></div>#}
+{##}
+{#                                        </td>#}
+{#                                    </tr>#}
+{#                                {% endfor %}#}
+                                {#                    </tr>#}
+{#                                </tbody>#}
+{#                            </table>#}
+{#                        </div>#}
+{#                    </div>#}
                 </div>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -297,6 +334,7 @@
 
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'c_s_app/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'c_s_app/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- Core plugin JavaScript-->
@@ -306,11 +344,11 @@
 <script src="{% static 'c_s_app/js/sb-admin-2.js' %}"></script>
 
 <!-- Page level plugins -->
-<script src="{% static 'c_s_app/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{% static 'c_s_app/js/demo/chart-area-demo.js' %}"></script>
-<script src="{% static 'c_s_app/js/demo/chart-pie-demo.js' %}"></script>
+<script src="{% static 'c_s_app/js/demo/datatables-demo.js' %}"></script>
 
 </body>
 
