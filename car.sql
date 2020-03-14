@@ -363,7 +363,8 @@ CREATE TABLE public.c_s_app_resultdeepstream (
     probability integer NOT NULL,
     car_photo character varying(100) NOT NULL,
     camera_id integer NOT NULL,
-    request_id integer NOT NULL
+    request_id integer NOT NULL,
+    car_video character varying(100)
 );
 
 
@@ -813,6 +814,7 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 41	2020-03-09 12:11:00+01	2020-03-10 01:00:00+01	2020-03-11 12:11:37.130382+01
 42	2020-03-09 01:00:00+01	2020-03-09 23:22:00+01	2020-03-11 12:23:02.478016+01
 43	2020-03-09 12:11:00+01	2020-03-10 23:22:00+01	2020-03-12 12:48:45.369294+01
+44	2020-03-11 12:11:00+01	2020-03-11 23:22:00+01	2020-03-13 08:43:16.370076+01
 \.
 
 
@@ -820,7 +822,7 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 -- Name: c_s_app_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 43, true);
+SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 44, true);
 
 
 --
@@ -907,6 +909,7 @@ COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin
 77	\N	3	41
 78	Test_URL:_request_pk:42/cam_id:cam_id5/cam_address:Address5	5	42
 79	Test_URL:_request_pk:43/cam_id:cam_id3/cam_address:Address3	3	43
+80	Test_URL:_request_pk:44/cam_id:cam_id3/cam_address:Address3	3	44
 \.
 
 
@@ -914,17 +917,17 @@ COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin
 -- Name: c_s_app_requestcameraurl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 79, true);
+SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 80, true);
 
 
 --
 -- Data for Name: c_s_app_resultdeepstream; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.c_s_app_resultdeepstream (id, "timestamp", car_number, car_brand, car_color, probability, car_photo, camera_id, request_id) FROM stdin;
-1	2020-01-01 13:05:00+01	12345	BMW	black	97	images/1.png	1	27
-2	2020-01-01 14:00:00+01	23456	Audi	red	95	images/2.png	2	27
-3	2020-01-02 09:00:00+01	34567	Toyota	white	90	images/3.png	3	27
+COPY public.c_s_app_resultdeepstream (id, "timestamp", car_number, car_brand, car_color, probability, car_photo, camera_id, request_id, car_video) FROM stdin;
+1	2020-01-01 13:05:00+01	12345	BMW	black	97	images/1.png	1	27	videos/0_03.mp4
+2	2020-01-01 14:00:00+01	23456	Audi	red	95	images/2.png	2	27	videos/0_03.mp4
+3	2020-01-02 09:00:00+01	34567	Toyota	white	90	images/3.png	3	27	videos/0_03.mp4
 \.
 
 
@@ -1011,6 +1014,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 21	c_s_app	0004_resultdeepstream	2020-03-05 17:36:53.983808+01
 22	c_s_app	0005_requestcameraurl_request_time	2020-03-11 12:09:28.842237+01
 23	c_s_app	0006_auto_20200311_1110	2020-03-11 12:10:43.175962+01
+24	c_s_app	0002_resultdeepstream_car_video	2020-03-13 13:47:33.439446+01
 \.
 
 
@@ -1018,7 +1022,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 23, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 
 
 --

@@ -81,7 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'car_searcher',
         'USER': 'user1',
+        # 'USER': 'postgres',
         'PASSWORD': 'user1',
+        # 'PASSWORD': 'coderslab',
     }
 }
 
