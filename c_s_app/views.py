@@ -1,22 +1,63 @@
 from time import sleep
-from datetime import datetime
+from requests.auth import HTTPDigestAuth
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 import threading
 import requests
+import schedule
 
 from c_s_app.forms import *
 from c_s_app.models import *
 
-# TO DELETE
-# class MainView(View):
-#     def get(self, request):
-#         return render(request, 'c_s_app/index.html')
+
+def get_cams_list():
+    login = 'api'
+    password = r'1iGcg/AxRYPVAYRoasddSD9aKZCFdYT+yVphmSKtQ'
+    url_address = 'http://10.32.2.24:3030/list'
+    api_request = requests.get(url_address, auth=HTTPDigestAuth(login, password))
+
+    if api_request.status_code == 200:
+        cams_list = api_request.json()
+        print(cams_list)
+        for cam in cams_list:
+            name = cam['name']
+            cam_id = cam['id']
+            address = cam['path']
+            lat = cam['lat']
+            long = cam['long']
+            azimuth = cam['azimuth']
+            cam_obj = Camera.objects.filter(cam_id=cam_id)
+
+            if len(cam_obj) == 0:
+                new_cam = Camera.objects.create(name=name,
+                                                cam_id=cam_id,
+                                                address=address,
+                                                lat=lat,
+                                                long=long,
+                                                azimuth=azimuth)
+    else:
+        print('WARNING! API response with code: ', api_request.status_code)
+
+
+def starter():
+    """
+    runs func get_cams_list every 24h
+    :return:
+    """
+    schedule.every(24).hours.do(get_cams_list)
+    while True:
+        schedule.run_pending()
+        sleep(60*60*5)  # sleeps 5h
+
+
+# runs func 'starter' in Thread
+# threading.Thread(target=starter).start()
 
 
 class CamerasRequest(View):
     def get(self, request):
+        # get_cams_list()  # runs func to update Cameras list in DB
         form = CamsRequestForm()
         return render(request, 'c_s_app/index.html', {'form': form, 'submit_value': 'Отправить запрос'})
 
@@ -34,37 +75,41 @@ class CamerasRequest(View):
 
             cams_list = request.POST.getlist('cams')  # there may be a check on the number (20) of cameras
 
-            cameras_array = [Camera.objects.get(address=cam) for cam in cams_list]
+            cameras_array = [Camera.objects.get(name=cam) for cam in cams_list]
             request_object = Request.objects.create(start=start, finish=finish)
 
             # API request for URL
             def get_url(cam_id_request, start_request, finish_request):
                 login = 'api'
-                password = '1iGcg/AxRYPVAYRoJ2o7qcZL9aKZCFdYT+yVphmSKtQ='
-                url_address = 'http://192.168.192.12:3030/archive'  # !!! clarify URL address
-# ------------------------------ block to work with real API ------------------------------------------------------------
-#                 api_request = requests.get(url_address, auth=(login, password),
-#                                            params={'id': cam_id_request, 'start': start_request, 'end': finish_request})
-#
-#                 if api_request.status_code == 200:
-#                     api_response = api_request.json()  # response converted to Python dictionary
-#                     url = api_response['url']
-# ------------------------------ end of block "to work with real API" ------------------------------------------------------------
+                password = '1iGcg/AxRYPVAYRoasddSD9aKZCFdYT+yVphmSKtQ'
+                url_address = 'http://10.32.2.24:3030/archive'
+# ------------------------------ block to work with real API -----------------------------------------------------------
+                api_request = requests.get(url_address, auth=HTTPDigestAuth(login, password),
+                                           params={'id': cam_id_request, 'start': start_request, 'end': finish_request})
+                print(api_request.url)
+                print(start_request, finish_request)
+
+                if api_request.status_code == 200:
+                    api_response = api_request.json()  # response converted to Python dictionary
+                    if api_response is not None:
+                        url = api_response['url']
+# ------------------------------ end of block "to work with real API" --------------------------------------------------
 
 
-# ------------------------------ block to test without real API ------------------------------------------------------------
-                if True:
-                    camera_obj = Camera.objects.get(cam_id=cam_id_request)
-                    url = 'Test_URL:_request_pk:{}/cam_id:{}/cam_address:{}'.format(request_object.pk,
-                                                                                    camera_obj.cam_id,
-                                                                                    camera_obj.address)
+# ------------------------------ block to test without real API --------------------------------------------------------
+#                 if True:
+#                     camera_obj = Camera.objects.get(cam_id=cam_id_request)
+#                     url = 'Test_URL:_request_pk:{}/cam_id:{}/cam_address:{}'.format(request_object.pk,
+#                                                                                     camera_obj.cam_id,
+#                                                                                     camera_obj.address)
+#                         if True:
 # ------------------------------ end of block to test without real API ------------------------------------------------------------
 
                 # URL record to DB
-                    camera_obj = Camera.objects.get(cam_id=cam_id_request)
-                    obj_for_url = RequestCameraURL.objects.get(request=request_object, camera=camera_obj)
-                    obj_for_url.url = url
-                    obj_for_url.save()
+                        camera_obj = Camera.objects.get(cam_id=cam_id_request)
+                        obj_for_url = RequestCameraURL.objects.get(request=request_object, camera=camera_obj)
+                        obj_for_url.url = url
+                        obj_for_url.save()
 
                     # отправка URL в DeepStream
                     # здесь будет redirect на страницу с результатом обработки через DeepStream
@@ -73,8 +118,8 @@ class CamerasRequest(View):
                 request_object.cameras.add(cam)
 
                 # URL requests in different Threads
-                strt = request_object.start.isoformat()
-                fnsh = request_object.finish.isoformat()
+                strt = request_object.start.astimezone().isoformat(timespec='milliseconds')
+                fnsh = request_object.finish.astimezone().isoformat(timespec='milliseconds')
                 threading.Thread(target=get_url, args=(cam.cam_id, strt, fnsh)).start()
 
             return redirect("/cam_request/{}".format(request_object.pk))  # здесь будет redirect на страницу с ожиданием обработки

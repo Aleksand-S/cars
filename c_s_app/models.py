@@ -3,9 +3,12 @@ from django.db import models
 
 
 class Camera(models.Model):
-    cam_id = models.CharField(max_length=64)
     name = models.CharField(max_length=64)
+    cam_id = models.CharField(max_length=64)
     address = models.CharField(max_length=128)
+    lat = models.CharField(max_length=32, null=True)
+    long = models.CharField(max_length=32, null=True)
+    azimuth = models.CharField(max_length=32, null=True)
 
 
 class Request(models.Model):
