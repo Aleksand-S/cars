@@ -367,6 +367,14 @@
                                                     <div class="myModal">
                                                         <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="900"></p>
                                                         <span class="close myModal__close">ₓ</span>
+
+                                                    <a class="btn btn-secondary btn-icon-split" href="/media/{{ result.car_photo }}" download>
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-download"></i>
+                                                        </span>
+                                                        <input type="submit" value="Сохранить">
+                                                    </a>
+
                                                     </div>
                                                     <div class="myOverlay"></div>
                                                 </td>
@@ -385,12 +393,20 @@
                                                     <div class="myModal videoModal">
                                                         <p>
     {#                                                        <video src="/media/{{ result.car_video }}" alt="видео" width="400"></video>#}
-                                                            <video width='700' controls>
+                                                            <video width='650' controls>
                                                                 <source src='/media/{{ result.car_video }}' type='video/mp4'>
                                                                 Your browser does not support the video tag.
                                                             </video>
                                                         </p>
                                                         <span class="close myModal__close">ₓ</span>
+
+                                                        <a class="btn btn-secondary btn-icon-split" href="/media/{{ result.car_video }}" download>
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-download"></i>
+                                                            </span>
+                                                            <input type="submit" value="Сохранить">
+                                                        </a>
+
                                                     </div>
                                                     <div class="myOverlay"></div>
 

@@ -25,7 +25,7 @@ urlpatterns = [
     path('index/', CamerasRequest.as_view(), name='index'),
     path('cam_request/<int:request_id>/', CamerasRequestProgress.as_view()),
     path('request_result/<int:request_id>/', RequestResultView.as_view()),
-    # path('requests_list/', RequestsListView.as_view()),
+    path('requests_list/', RequestsListView.as_view()),
     path('car_search/', CarSearchView.as_view()),
     path('empty/', EmptyView.as_view()),
 
