@@ -208,11 +208,19 @@
                                     <label for="{{ form.car_brand.id_for_label }}"></label>
                                     {{ form.car_brand }}
 
+                                    {{ form.car_model.errors }}
+                                    <label for="{{ form.car_model.id_for_label }}"></label>
+                                    {{ form.car_model }}
+
+                                    {{ form.car_generation.errors }}
+                                    <label for="{{ form.car_generation.id_for_label }}"></label>
+                                    {{ form.car_generation }}
+
                                     {{ form.car_color.errors }}
                                     <label for="{{ form.car_color.id_for_label }}"></label>
                                     {{ form.car_color }}
 
-                                    <input class="btn btn-primary" type="submit" value="Начать поиск">
+                                    <input class="btn btn-primary" type="submit" value="Начать поиск" style="float: right">
                                 </div>
                             </div>
                         </form>

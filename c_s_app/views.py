@@ -180,18 +180,21 @@ class CarSearchView(View):
         if form_result.is_valid():
             car_num = form_result.cleaned_data['car_number']
             car_brand = form_result.cleaned_data['car_brand']
+            car_model = form_result.cleaned_data['car_model']
+            car_gen = form_result.cleaned_data['car_generation']
             car_color = form_result.cleaned_data['car_color']
 
-            if len(car_brand) == 0 and len(car_color) == 0:
-                search_results = ResultDeepstream.objects.filter(car_number=car_num)
-            elif len(car_color) == 0:
-                search_results = ResultDeepstream.objects.filter(car_number=car_num).filter(car_brand=car_brand)
-            elif len(car_brand) == 0:
-                search_results = ResultDeepstream.objects.filter(car_number=car_num).filter(car_color=car_color)
-            else:
-                search_results = ResultDeepstream.objects.\
-                    filter(car_number=car_num).filter(car_brand=car_brand).filter(car_color=car_color)
-
+            search_results = ResultDeepstream.objects.all()
+            if len(car_num) != 0:
+                search_results = search_results.filter(car_number=car_num)
+            if len(car_brand) != 0:
+                search_results = search_results.filter(car_brand=car_brand)
+            if len(car_model) != 0:
+                search_results = search_results.filter(car_model=car_model)
+            if len(car_gen) != 0:
+                search_results = search_results.filter(car_generation=car_gen)
+            if len(car_color) != 0:
+                search_results = search_results.filter(car_color=car_color)
 
             return render(request, 'c_s_app/car_search.html', {'form': form_search,
                                                                'search_results': search_results})

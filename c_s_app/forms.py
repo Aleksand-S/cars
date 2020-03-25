@@ -36,6 +36,8 @@ class CamsRequestForm(forms.Form):
 
 
 class CarSearchForm(forms.Form):
-    car_number = forms.CharField(max_length=16, widget=forms.TimeInput(attrs={'placeholder':'рег. номер авто'}))
-    car_brand = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'марка авто'}))
-    car_color = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'цвет авто'}))
+    car_number = forms.CharField(max_length=16, widget=forms.TimeInput(attrs={'placeholder':'рег. номер авто', 'size':'12'}))
+    car_brand = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'марка', 'size':'12'}))
+    car_model = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'модель', 'size':'12'}))
+    car_generation = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'поколение', 'size':'12'}))
+    car_color = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'цвет авто', 'size':'12'}))
