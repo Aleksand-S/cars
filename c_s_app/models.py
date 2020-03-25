@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -39,3 +40,9 @@ class ResultDeepstream(models.Model):
     color_probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     car_photo = models.ImageField(upload_to='images/')
     car_video = models.FileField(upload_to='videos/', null=True)
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    time = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()

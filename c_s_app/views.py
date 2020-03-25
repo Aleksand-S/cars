@@ -245,3 +245,16 @@ def export_results_xls(request, request_id):
 class FAQView(View):
     def get(self, request):
         return render(request, 'c_s_app/faq.html')
+
+
+class FeedbackView(View):
+    def get(self, request):
+        form = FeedbackForm()
+        return render(request, 'c_s_app/feedback.html', {'form': form})
+
+    def post(self, request):
+        form_result = FeedbackForm(request.POST)
+        if form_result.is_valid():
+            text = form_result.cleaned_data['text']
+            new_question = Feedback.objects.create(text=text)
+        return render(request, 'c_s_app/feedback.html', {'success': 'Запрос отправлен успешно!'})

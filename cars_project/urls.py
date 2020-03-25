@@ -29,6 +29,7 @@ urlpatterns = [
     path('car_search/', CarSearchView.as_view()),
     path('empty/', EmptyView.as_view()),
     path('faq/', FAQView.as_view()),
+    path('feedback/', FeedbackView.as_view()),
 
 
     path('ajax/progress/', progress),

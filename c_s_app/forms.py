@@ -41,3 +41,7 @@ class CarSearchForm(forms.Form):
     car_model = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'модель', 'size':'12'}))
     car_generation = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'поколение', 'size':'12'}))
     car_color = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'цвет авто', 'size':'12'}))
+
+
+class FeedbackForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'style':'width:100%'}))
