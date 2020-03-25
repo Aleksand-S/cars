@@ -309,7 +309,15 @@
                     <div class="row">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Результаты поиска {{ request_obj.request_time|date:'d.m.Y h:i' }}</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Результаты поиска {{ request_obj.request_time|date:'d.m.Y h:i' }}
+                                    <span style="float: right">
+                                        <a href="/export/xls/{{ request_obj.pk }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-download fa-sm text-white-50"></i> Скачать в Excel</a>
+                                    </span>
+                                </h6>
+{#                                <a href="/export/xls/{{ request_obj.pk }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">#}
+{#                                    <i class="fas fa-download fa-sm text-white-50"></i> Создать отчет в PDF</a>#}
+{#                                <a href="/export/xls/{{ request_obj.pk }}">Save results</a>#}
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

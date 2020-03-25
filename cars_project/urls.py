@@ -31,5 +31,6 @@ urlpatterns = [
 
 
     path('ajax/progress/', progress),
+    path('export/xls/<int:request_id>', export_results_xls, name='export_users_xls'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
