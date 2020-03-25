@@ -237,3 +237,8 @@ def export_results_xls(request, request_id):
 
     wb.save(response)
     return response
+
+
+class FAQView(View):
+    def get(self, request):
+        return render(request, 'c_s_app/faq.html')

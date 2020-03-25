@@ -1,0 +1,439 @@
+{% extends 'c_s_app/index.html' %}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#{% load static %}#}
+{##}
+{#<head>#}
+{##}
+{#    <meta charset="utf-8">#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <meta name="description" content="">#}
+{#    <meta name="author" content="">#}
+{##}
+{#    <title>City AI_v1.0. Модуль для поиска угнанных автомобилей | Discoperi</title>#}
+{##}
+{#    <!-- Custom fonts for this template-->#}
+{#    <link href="{% static 'c_s_app/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">#}
+{#    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">#}
+{##}
+{#    <!-- Custom styles for this template -->#}
+{#    <link href="{% static 'c_s_app/css/sb-admin-2.css' %}" rel="stylesheet">#}
+{##}
+{#    <!-- Custom styles for this page -->#}
+{#    <link href="{% static 'c_s_app/vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">#}
+{##}
+{#</head>#}
+{##}
+{#<body id="page-top">#}
+{#<!-- Page Wrapper -->#}
+{#<div id="wrapper">#}
+{##}
+{#    <!-- Sidebar -->#}
+{#    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">#}
+{##}
+{#        <!-- Sidebar - Brand -->#}
+{#        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">#}
+{#            <img src="{% static 'c_s_app/img/logo_city_ai_80_80.png' %}">#}
+{#        </a>#}
+{##}
+{#        <!-- Divider -->#}
+{#        <hr class="sidebar-divider my-0">#}
+{##}
+{#        <!-- Divider -->#}
+{#        <hr class="sidebar-divider">#}
+{##}
+{#        <!-- Heading -->#}
+{#        <div class="sidebar-heading">#}
+{#            Меню#}
+{#        </div>#}
+{##}
+{#        <!-- Nav Item - Utilities Collapse Menu -->#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">#}
+{#                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>#}
+{#                <span>Поиск</span>#}
+{#            </a>#}
+{#            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">#}
+{#                <div class="bg-white py-2 collapse-inner rounded">#}
+{#                    <h6 class="collapse-header">Поиск по категориям:</h6>#}
+{#                    <a class="collapse-item" href="/empty">Результаты обработки</a>#}
+{#                    <a class="collapse-item" href="/empty">Результаты поиска</a>#}
+{#                    <a class="collapse-item" href="/empty">Прошлые запросы</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </li>#}
+{##}
+{#        <!-- Divider -->#}
+{#        <hr class="sidebar-divider">#}
+{##}
+{#        <!-- Heading -->#}
+{#        <div class="sidebar-heading">#}
+{#            Помощь#}
+{#        </div>#}
+{##}
+{#        <!-- Nav Item - Tables -->#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="/empty">#}
+{#                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>          <i class="sb-nav-link-icon"></i>#}
+{#                <span>Реестр автомобилей</span></a>#}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="/empty">#}
+{#                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>#}
+{#                <span>Вопросы и ответы</span></a>#}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="/empty">#}
+{#                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-repeat"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>#}
+{#                <span>Обратная связь</span></a>#}
+{#        </li>#}
+{#        <!-- Divider -->#}
+{#        <hr class="sidebar-divider d-none d-md-block">#}
+{##}
+{#        <!-- Sidebar Toggler (Sidebar) -->#}
+{#        <div class="text-center d-none d-md-inline">#}
+{#            <button class="rounded-circle border-0" id="sidebarToggle"></button>#}
+{#        </div>#}
+{##}
+{#    </ul>#}
+{#    <!-- End of Sidebar -->#}
+{##}
+{#    <!-- Content Wrapper -->#}
+{#    <div id="content-wrapper" class="d-flex flex-column">#}
+{##}
+{#        <!-- Main Content -->#}
+{#        <div id="content">#}
+{##}
+{#            <!-- Topbar -->#}
+{#            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">#}
+{##}
+{#                <!-- Sidebar Toggle (Topbar) -->#}
+{#                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">#}
+{#                    <i class="fa fa-bars"></i>#}
+{#                </button>#}
+{#                <img class="img-profile rounded-circle" src="{% static 'c_s_app/img/small_police.png' %}">#}
+{#                <img class="img-profile rounded-circle" src="{% static 'c_s_app/img/small_ksc.png' %}">#}
+{#                <div class="topbar-divider d-none d-sm-block"></div>#}
+{#                <!-- Page Heading -->#}
+{#                <div class="input-group">#}
+{#                    <h1 class="h3 mb-0 text-gray-800">Поиск автомобилей</h1>#}
+{#                </div>#}
+{##}
+{#                <!-- Topbar Navbar -->#}
+{#                <ul class="navbar-nav ml-auto">#}
+{##}
+{#                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->#}
+{#                    <li class="nav-item dropdown no-arrow d-sm-none">#}
+{#                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                            <i class="fas fa-search fa-fw"></i>#}
+{#                        </a>#}
+{#                        <!-- Dropdown - Messages -->#}
+{#                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">#}
+{#                            <form class="form-inline mr-auto w-100 navbar-search">#}
+{#                                <div class="input-group">#}
+{#                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">#}
+{#                                    <div class="input-group-append">#}
+{#                                        <button class="btn btn-primary" type="button">#}
+{#                                            <i class="fas fa-search fa-sm"></i>#}
+{#                                        </button>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                    </li>#}
+{##}
+{#                    <div class="topbar-divider d-none d-sm-block"></div>#}
+{##}
+{#                    <!-- Nav Item - User Information -->#}
+{#                    <li class="nav-item dropdown no-arrow">#}
+{#                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Майор Рогова</span>#}
+{#                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">#}
+{#                        </a>#}
+{#                        <!-- Dropdown - User Information -->#}
+{#                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Профиль#}
+{#                            </a>#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Настройка#}
+{#                            </a>#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Активность#}
+{#                            </a>#}
+{#                            <div class="dropdown-divider"></div>#}
+{#                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">#}
+{#                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Выйти#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </li>#}
+{##}
+{#                </ul>#}
+{##}
+{#            </nav>#}
+{#            <!-- End of Topbar -->#}
+{##}
+{#            <!-- Begin Page Content -->#}
+{#            <div class="container-fluid">#}
+{##}
+{#                <!-- Page Heading -->#}
+                {#          <h1 class="h3 mb-2 text-gray-800">Tables</h1>#}
+                {#          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>#}
+
+                <!-- DataTales Example -->
+                {% block content %}
+                <!-- Page Heading -->
+          <h1 class="h3 mb-4 text-gray-800">Вопросы и Ответы по системе поиска угнанных автомобилей</h1>
+              <!-- Content1 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Логин и пароль</h6>
+                </div>
+                <div class="card-body">
+                  <p>• Как поменять логин?</p>
+					<p>Для того, чтобы поменять логин, пожалуйста обратитесь к Администратору Вашей системы. </p>
+					<p>• Как поменять пароль?</p>
+					<p>Для того, чтобы поменять логин, пожалуйста обратитесь к Администратору Вашей системы.</p>
+					<p>• Когда City AI автоматически закрывает сеанс?</p>
+					<p>Система автоматически закрывает сеанс через 30 минут</p>
+                </div>
+              </div>
+
+              <!-- Content2 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Выбор камеры</h6>
+                </div>
+                <div class="card-body">
+                  <p>• Как выбрать камеру для обработки?</p>
+					<p>Для начала работы с системой Пользователь должен выбрать необходимые камеры для начала анализа. Существует несколько способов выбора камер для анализа: двойное нажатие, перетаскивание и выделение на карте. </p>
+					<p>Двойное нажатие </p>
+					<p>С целью выбора камеры необходимо дважды нажать на названии камеры из окна “Выберите камеры для анализа”. Выбранные камеры будут отображаться в окне “Перечень выбранных камер для анализа”. </p>
+					<p>Перетаскивание </p>
+					<p>С целью выбора камеры необходимо зажать левую кнопку мыши на имени необходимой камере из перечня окна “Выберите камеры для анализа” и перетащить выбранное имя в окно “Перечень выбранных камер для анализа”.</p>
+					<p>Выделение на карте </p>
+					<p>С целью выбора камеры необходимо выбрать один или несколько иконок со значками камер на карте, при этом зажав левую кнопку мыши. Выбранные камеры отобразятся в окне “Перечень выбранных камер для анализа”.</p>
+                  <p>•	Сколько камер можно выбрать одновременно?</p>
+					<p>Пользователь одновременно может выбрать до 20 камер. При выборе большего количества камер, обработаны будут только лишь первые 20 камер в окне “Перечень выбранных камер для анализа”.</p>
+                  <p>•	Зачем нужен период поиска?</p>
+					<p>Период поиска позволяет осуществить поиск в определенных временных рамках. Это необходимо с целью оптимизации процесса поиска (ведь, обычно, есть хотя бы ориентировочное представление о времени, необходимом для поиска автомобиля). </p>
+					<p>Если же время неопределенно (к примеру, автомобиль был угнан ночью с 21.00  до 6.00 утра), то рекомендуется осуществить несколько поисков и разбить каждый по 15-30 минут. Таким образом скорость обработки будет значительно выше.  </p>
+                </div>
+              </div>
+              <!-- Content3 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Результаты обработки</h6>
+                </div>
+                <div class="card-body">
+                  <p>•	Какая задача страницы “Результаты обработки”?</p>
+					<p>На странице “Результаты обработки” выводятся результаты обработки видео потоков с выбранных камер. На этой странице выводятся ВСЕ автомобили, которые были найдены на  выбранной камере за заданный временной период. На этой странице можно также отсортировать результаты, чтобы потом на следующей странице “Результаты поиска” осуществить поиск по определенному параметру.
+С другой стороны, данная страница позволяет начать работу по идентификации автомобиля, если детали отсутствуют.
+					</p>
+{#                </div>#}
+                  <p>•	Что такое “Номер обработки”?</p>
+					<p>“Номер обработки” - это параметр, который используется системой для хранения результатов обработки. Каждый Номер обработки соответствует определенному анализу выбранной камеры в рамках определенного периода.</p>
+                  <p>• Как выбрать камеру для обработки?</p>
+					<p>“Прогресс” позволяет понимать уровень обработки. По мере выполнения обработки по выбранным камерам в рамках определенного периода, Прогресс изменяет значение от 0% до 100%. </p>
+                  <p>•	Что значит "Поколение автомобиля”?</p>
+					<p>Поклонение автомобиля соответствует годам его выпуска. Разные автомобильные производители выпускают и обновляют свои модели автомобилей в разное время. Учитывая, что новые модели выпускаются с разной регулярностью, сказать, что второе поколение первого автомобиля соответствует второму поколению другого автомобиля по  годам производства крайне неправильно. Поэтому мы подготовили таблицу с описанием поколений автомобилей. Таблица находится здесь: ссылка.  </p>
+                  <p>•	Что значит “Вероятность”?</p>
+					<p>В процессе обработки видео и, в частности, определения автомобиля, имеется параметр вероятности того, какая марка и модель максимально соответствует выявленному автомобилю. Этот параметр может быть от 50% и до 100%. Чем выше параметр “Вероятность” тем выше система считает, что автомобиль соответствует заданным критериям.</p>
+					<p>Нужно понимать, что так как система физически неспособна увидеть все-все автомобили (новые автомобили постоянно выпускаются, угол  наклона камеры может быть изменен, погодные условия могут быть плохими и объекты будут плохо различимыми) - система будет давать погрешность. Однако, со временем, по мере накопления данных, система будет способна узнавать абсолютное количество автомобилей на дорогах и уровень погрешности будет минимизирован. </p>
+					<p>В базе данных доступно два параметра “Вероятность”. Существует вероятность по марке, модели и поколению, и отдельная вероятность по цвету. Уровень вероятности по марке, модели и поколению доступна в столбце справа от столбца “Поколение”. Уровень вероятности по цвету доступна в столбце справа от столбца “Цвет”. </p>
+              </div>
+              </div>
+
+              <!-- Content2 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Результаты поиска</h6>
+                </div>
+                <div class="card-body">
+                  <p>•	По каким параметрам происходит поиск автомобиля?</p>
+					<p>Поиск автомобиля происходит по параметрам: марка, модель, поколение, цвет и номер автомобиля. </p>
+                  <p>•	Можно ли найти мотоцикл или велосипед?</p>
+					<p>В текущей версии (City AI 1.0) программы функционал по поиску мотоциклов и велосипедов ограничен. Однако он будет реализован в версии City AI 1.1.</p>
+                  <p>•	Что делать, если номер автомобиля неизвестен?</p>
+					<p>В случае, если номер автомобиля неизвестен существует возможность найти его по марке, модели, поколению и цвету. Даже когда автомобиль находится “далеко” от камеры, его можно распознать, если вероятность выше 50% и его размер больше, чем 64х64 пикселя. </p>
+                  <p>•	Что делать, если марка автомобиля неизвестна?</p>
+					<p>Если марка автомобиля неизвестна - можно сделать поиск по параметру цвета или номера, либо попробовать найти разыскиваемый автомобиль вручную путем перебора результатов обработки на вкладке “Результаты обработки”. </p>
+					<p>Важно: без выбора марки автомобиля позиции модели и поколения будут неактивны. </p>
+                  <p>•	Что делать, если модель автомобиля неизвестна?</p>
+					<p>Если модель автомобиля неизвестна, существует возможность его поиска по марке, или номеру.</p>
+					<p>Важно: без выбора марки и модели автомобиля позиция поколения будет недоступна. </p>
+				<p>•	Что делать, если поколение автомобиля неизвестно?</p>
+					<p>Если поколение автомобиля неизвестно, существует возможность его поиска по остальным параметрам. </p>
+				<p>•	Что делать, если цвет автомобиля неизвестен?</p>
+					<p>Если цвет автомобиля неизвестен - возможно выбрать в базе данных несколько цветов или оставить параметр цвета без выбора. </p>
+				<p>•	Что значит “Подобные автомобили”?</p>
+					<p>Многие автопроизводители сегодня совместно разрабатывают автомобили, привнося в готовый продукт свои сильные стороны. Это позволяет выпускать более качественные автомобили и снижать стоимость на разработку и производство, что позволяет держать цены на достаточно низком уровне. </p>
+					<p>выбор данной опции позволит также просмотреть похожие автомобили. К примеру, Renault Kangoo 1-го поколения напоминает Peugeot Partner 1-го поколения (после фейслифтинга), а также Fiat Doblo 1-го поколения (также после фейслифтинга). Выбирая данную опцию, Пользователь будет искать все похожие автомобили на разыскиваемый. </p>
+				<p>•	Что значит “Схожие номера”</p>
+					<p>Возможность поиска номера ограничена дистанцией автомобиля до камеры, а также видимостью. Поэтому данная опция позволяет искать номера, которые схожи с разыскиваемым номером. </p>
+				</div>
+              </div>
+
+              <!-- Content4 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Фото и видео</h6>
+                </div>
+                <div class="card-body">
+                  <p>•	Как найти фото автомобиля?</p>
+					<p>Чтобы найти фото автомобиля нужно нажать на ссылку в столбце “Фото” соответствующей записи на странице “Результаты обработки” или “Результаты поиска”. Фотография автомобиля, на которой он был зафиксирован будет выведена на экран. </p>
+				<p>•	Как найти видео автомобиля?</p>
+					<p>Чтобы найти видео автомобиля нужно нажать на ссылку в столбце “Видео” соответствующей записи на странице “Результаты обработки” или “Результаты поиска”. Видеоролик с зафиксированным автомобилем будет выведен на экран. Длительность видео-ролика составляет 15 секунд</p>
+				<p>•	Можно ли сохранить фото автомобиля?</p>
+					<p>В данной версии системы отсутствует возможность сохранения фотографии автомобиля на компьютер.</p>
+				<p>•	Можно ли сохранить видео автомобиля?</p>
+					<p>В данной версии системы отсутствует возможность сохранения видео автомобиля на компьютер.</p>
+				<p>•	Как долго видео и фото хранятся в архиве программы?</p>
+					<p>Файлы в архиве хранятся в течение 30 дней. </p>
+                </div>
+              </div>
+
+              <!-- Content5 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">База данных</h6>
+                </div>
+                <div class="card-body">
+                  <p>•	Чем отличается база в “Результаты обработки” от “Результаты поиска”?</p>
+					<p>"Результаты обработки” - это база данных с найденными всеми автомобилями на выбранных камерах, в то время как “Результаты поиска” представляет собой функцию поиска среди обработанных результатов. Напрямую с камерой “Результаты поиска” не взаимодействуют. </p>
+				<p>•	Как можно работать с базой данных?</p>
+					<p>С базой данных на вкладках “Результаты обработки” и “Результаты поиска” можно работать так же, как и с другими привычными базами данных, в том числе, к примеру, фильтровать по каждой отдельной колонке. </p>
+				<p>•	Как поделиться “Результатами обработки” или “Результатами поиска”?</p>
+					<p>Для того, чтобы поделиться “Результатами обработки” или “Результатами поиска” необходимо просто ввести адрес получателя и нажать Enter на клавиатуре. Письмо будет автоматически создано и отправлено. </p>
+				<p>•	Как экспортировать “Результаты обработки” или “Результаты поиска”?</p>
+					<p>Для экспорта “Результатов обработки” или “Результатов поиска” нажмите соответствующую иконку внизу экрана. Вы можете экспортировать либо в формате Microsoft Excel, либо в PDF. </p>
+				<p>•	Как распечатать “Результаты обработки” или “Результаты поиска”?</p>
+					<p>Для печати “Результатов обработки” или “Результатов поиска” нажмите соответсвующую иконку внизу экрана. </p>
+                </div>
+              </div>
+
+              <!-- Content6 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Поиск</h6>
+                </div>
+                <div class="card-body">
+                 <p>•	Как найти автомобиль?</p>
+                  <p>В поиске автомобиля основной инструмент - скорость. Для того, чтобы как можно быстрее найти автомобиль, лучше всего выбрать одну или несколько камер за максимально вероятный период времени, получить результаты и уже на основе их (к примеру, знание - был ли автомобиль в выбранном месте) принимать решение об анализе других камер. Это позволит более точно работать с системой и достичь лучших результатов. </p>
+                 <p>•	Как ускорить поиск?</p>
+                  <p>Поиск можно ускорить благодаря следующему: </p>
+                  <p>A.	Меньшее выбранных камер</p>
+                  <p>B.	Меньший период</p>
+                  <p>C.	Меньшее количество заданных параметров. Здесь нужно уточнить, если качество картинки хорошее - на скорость дополнительные параметры не повлияют. Однако, если картинка не самого хорошего качества, либо камера находится под неправильным углом - тогда это может помочь. </p>
+                  <p>•	Как мне найти мой прошлый поиск?</p>
+                  <p>•	Можно ли мне делать несколько поисков параллельно?</p>
+                </div>
+              </div>
+
+              <!-- Content7 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Права доступа</h6>
+                </div>
+                <div class="card-body">
+                 <p>•	Что дают мне права “Оператора”?</p>
+                  <p>Оператор может работать с системой, и получать все имеющиеся функции.</p>
+                 <p>•	Что дают мне права “Администратора”?</p>
+                  <p>Администратор может добавлять Операторов в систему или убирать из нее. </p>
+                 <p>•	Как мне получись право на доступ к продукту?</p>
+                  <p>Если Вы уже используете City AI - обратитесь к своему Администратору. Если нет - обратитесь к компании-разработчику продукта - Discoperi - по электронной почте на адрес: general@discoperi.com </p>
+                </div>
+              </div>
+
+              <!-- Content8 -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">О продукте</h6>
+                </div>
+                <div class="card-body">
+                 <p>•	Что такое City AI?</p>
+                  	<p>City AI - это серия решений, разработанных Discoperi с целью решения ключевых проблем транспортной инфраструктуры, эффективности потока и безопасности на дороги. Детальней узнать о продуктах Discoperi можно по ссылке: https://discoperi.com</p>
+                 <p>•	Кто является разработчиком продукта?</p>
+                  	<p>Разработчиком продукта является Discoperi - международная компания, специализирующаяся на разработке продуктов на основе машинного обучения и искусственного интеллекта с целью решения ключевых проблем транспортной инфраструктуры, эффективности потока и безопасности на дороги. </p>
+                 <p>•	Как мне купить продукт City AI?</p>
+                 	<p>Пожалуйста обратитесь напрямую к Discoperi через веб-сайт компании https://discoperi.com или через официальных дистрибьюторов продукции компании. </p>
+                 <p>•	Как мне получить больше информации о City AI?</p>
+                 	<p>Пожалуйста напишите письмо на электронный адрес: general@discoperi.com </p>
+                </div>
+              </div>
+                {% endblock %}
+{#            </div>#}
+{#            <!-- /.container-fluid -->#}
+{##}
+{#        </div>#}
+{#        <!-- End of Main Content -->#}
+{##}
+{#        <!-- Footer -->#}
+{#        <footer class="sticky-footer bg-white">#}
+{#            <div class="container my-auto">#}
+{#                <div class="copyright text-center my-auto">#}
+{#                    <span>Copyright &copy; City AI product. Developed by Discoperi B.V. (c) 2016-2020</span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </footer>#}
+{#        <!-- End of Footer -->#}
+{##}
+{#    </div>#}
+{#    <!-- End of Content Wrapper -->#}
+{##}
+{#</div>#}
+{#<!-- End of Page Wrapper -->#}
+{##}
+{#<!-- Scroll to Top Button-->#}
+{#<a class="scroll-to-top rounded" href="#page-top">#}
+{#    <i class="fas fa-angle-up"></i>#}
+{#</a>#}
+{##}
+{#<!-- Logout Modal-->#}
+{#<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#    <div class="modal-dialog" role="document">#}
+{#        <div class="modal-content">#}
+{#            <div class="modal-header">#}
+{#                <h5 class="modal-title" id="exampleModalLabel">Хотите выйти?</h5>#}
+{#                <button class="close" type="button" data-dismiss="modal" aria-label="Close">#}
+{#                    <span aria-hidden="true">×</span>#}
+{#                </button>#}
+{#            </div>#}
+{#            <!--  <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>-->#}
+{#            <div class="modal-footer">#}
+{#                <button class="btn btn-secondary" type="button" data-dismiss="modal">Отмена</button>#}
+{#                <a class="btn btn-primary" href="login.html">Выход</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<!-- Bootstrap core JavaScript-->#}
+{#<script src="{% static 'c_s_app/vendor/jquery/jquery.js' %}"></script>#}
+{#<script src="{% static 'c_s_app/vendor/jquery/jquery.js' %}"></script>#}
+{#<script src="{% static 'c_s_app/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>#}
+{##}
+{#<!-- Core plugin JavaScript-->#}
+{#<script src="{% static 'c_s_app/vendor/jquery-easing/jquery.easing.js' %}"></script>#}
+{##}
+{#<!-- Custom scripts for all pages-->#}
+{#<script src="{% static 'c_s_app/js/sb-admin-2.js' %}"></script>#}
+{##}
+{#<!-- Page level plugins -->#}
+{#<script src="{% static 'c_s_app/vendor/datatables/jquery.dataTables.js' %}"></script>#}
+{#<script src="{% static 'c_s_app/vendor/datatables/dataTables.bootstrap4.js' %}"></script>#}
+{##}
+{#<!-- Page level custom scripts -->#}
+{#<script src="{% static 'c_s_app/js/demo/datatables-demo.js' %}"></script>#}
+{##}
+{#</body>#}
+{##}
+{#</html>#}
