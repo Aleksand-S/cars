@@ -342,15 +342,15 @@
                                             {% for result in request_results %}
                                             <tr>
                                                 <td>{{ result.pk }}</td>
-                                                <td>12:30:59 20.12.2019</td>
+                                                <td>{{ result.timestamp|date:"d.m.Y h:i" }}</td>
                                                 <td>{{ result.camera.address }}</td>
                                                 <td>{{ result.car_number }}</td>
                                                 <td>{{ result.car_brand }}</td>
-                                                <td>model</td>
-                                                <td>generation</td>
-                                                <td>{{ result.probability }}</td>
+                                                <td>{{ result.car_model }}</td>
+                                                <td>{{ result.car_generation }}</td>
+                                                <td>{{ result.car_probability }}</td>
                                                 <td>{{ result.car_color }}</td>
-                                                <td>{{ result.probability }}</td>
+                                                <td>{{ result.color_probability }}</td>
 
                                                 <td>
     {#                                                <a href="/media/{{ result.car_photo }}" target="_blank">фото</a>#}

@@ -29,7 +29,13 @@ class ResultDeepstream(models.Model):
     timestamp = models.DateTimeField()
     car_number = models.CharField(max_length=16)
     car_brand = models.CharField(max_length=32)
+
+    car_model = models.CharField(max_length=32)
+    car_generation = models.CharField(max_length=32)
+    car_probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+
     car_color = models.CharField(max_length=32)
-    probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    # probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    color_probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     car_photo = models.ImageField(upload_to='images/')
     car_video = models.FileField(upload_to='videos/', null=True)
