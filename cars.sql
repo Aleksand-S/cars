@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.19
--- Dumped by pg_dump version 9.5.19
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -253,7 +254,10 @@ CREATE TABLE public.c_s_app_camera (
     id integer NOT NULL,
     cam_id character varying(64) NOT NULL,
     name character varying(64) NOT NULL,
-    address character varying(128) NOT NULL
+    address character varying(128) NOT NULL,
+    azimuth character varying(32),
+    lat character varying(32),
+    long character varying(32)
 );
 
 
@@ -278,6 +282,42 @@ ALTER TABLE public.c_s_app_camera_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.c_s_app_camera_id_seq OWNED BY public.c_s_app_camera.id;
+
+
+--
+-- Name: c_s_app_feedback; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public.c_s_app_feedback (
+    id integer NOT NULL,
+    "time" timestamp with time zone NOT NULL,
+    text text NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE public.c_s_app_feedback OWNER TO user1;
+
+--
+-- Name: c_s_app_feedback_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public.c_s_app_feedback_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.c_s_app_feedback_id_seq OWNER TO user1;
+
+--
+-- Name: c_s_app_feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public.c_s_app_feedback_id_seq OWNED BY public.c_s_app_feedback.id;
 
 
 --
@@ -360,11 +400,14 @@ CREATE TABLE public.c_s_app_resultdeepstream (
     car_number character varying(16) NOT NULL,
     car_brand character varying(32) NOT NULL,
     car_color character varying(32) NOT NULL,
-    probability integer NOT NULL,
+    car_probability integer NOT NULL,
     car_photo character varying(100) NOT NULL,
     camera_id integer NOT NULL,
     request_id integer NOT NULL,
-    car_video character varying(100)
+    car_video character varying(100),
+    car_generation character varying(32) NOT NULL,
+    car_model character varying(32) NOT NULL,
+    color_probability integer NOT NULL
 );
 
 
@@ -527,91 +570,98 @@ CREATE TABLE public.django_session (
 ALTER TABLE public.django_session OWNER TO postgres;
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: c_s_app_camera id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_camera ALTER COLUMN id SET DEFAULT nextval('public.c_s_app_camera_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: c_s_app_feedback id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public.c_s_app_feedback ALTER COLUMN id SET DEFAULT nextval('public.c_s_app_feedback_id_seq'::regclass);
+
+
+--
+-- Name: c_s_app_request id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_request ALTER COLUMN id SET DEFAULT nextval('public.c_s_app_request_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: c_s_app_requestcameraurl id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_requestcameraurl ALTER COLUMN id SET DEFAULT nextval('public.c_s_app_requestcameraurl_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: c_s_app_resultdeepstream id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_resultdeepstream ALTER COLUMN id SET DEFAULT nextval('public.c_s_app_resultdeepstream_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
@@ -626,25 +676,11 @@ COPY public.auth_group (id, name) FROM stdin;
 
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
-
-
---
 -- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 \.
-
-
---
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 
 
 --
@@ -692,14 +728,11 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 38	Can change result deepstream	10	change_resultdeepstream
 39	Can delete result deepstream	10	delete_resultdeepstream
 40	Can view result deepstream	10	view_resultdeepstream
+41	Can add feedback	11	add_feedback
+42	Can change feedback	11	change_feedback
+43	Can delete feedback	11	delete_feedback
+44	Can view feedback	11	view_feedback
 \.
-
-
---
--- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 40, true);
 
 
 --
@@ -707,6 +740,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 40, true);
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$150000$btUnrRF9DGRL$mx28SVQ8Xf0E5sXp45GRWcTWanB89qW1C+27Xz0B7TU=	2020-03-16 13:22:34.956715+01	t	admin			a.stelmaszok@gmail.com	t	t	2020-03-16 13:21:58.70182+01
 \.
 
 
@@ -719,20 +753,6 @@ COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
 
 
 --
--- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
-
-
---
--- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_id_seq', 1, false);
-
-
---
 -- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -741,30 +761,41 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 
 
 --
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
-
-
---
 -- Data for Name: c_s_app_camera; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.c_s_app_camera (id, cam_id, name, address) FROM stdin;
-1	cam_id1	Camera1	Address1
-2	cam_id2	Camera2	Address2
-3	cam_id3	Camera3	Address3
-4	cam_id4	Camera4	Address4
-5	cam_id5	Camera5	Address5
+COPY public.c_s_app_camera (id, cam_id, name, address, azimuth, lat, long) FROM stdin;
+1	cam_id1	Camera1	Address1	\N	\N	\N
+2	cam_id2	Camera2	Address2	\N	\N	\N
+3	cam_id3	Camera3	Address3	\N	\N	\N
+4	cam_id4	Camera4	Address4	\N	\N	\N
+5	cam_id5	Camera5	Address5	\N	\N	\N
+6	57b0b9bf6efd4881957cb250c9a1a26f	10.100.0.100	БМ Київ>Обзорки_перекрестки	\N	48.458986	35.042099
+7	336479e7446047fc99bddea6281173fc	10.100.0.103	БМ Київ>Обзорки_перекрестки	\N	48.458032	35.043798
+8	c2e92ed0aba44bb89f8a7b155643071b	10.9.1.46	БМ Київ>Обзорки_перекрестки	\N	48.465264	35.044089
+9	61d9aec8415c4870815db8b4d1999894	10.9.1.61	БМ Київ>Обзорки_перекрестки	\N	48.462547	35.049214
+10	0483a6fdaeb8483c896424d8fafca720	10.9.10.13	БМ Київ>Обзорки_перекрестки	300.38	48.461877	35.042758
+11	12f387244d524c4699759d5e3395d09a	10.9.13.18	БМ Київ>Обзорки_перекрестки	\N	48.460783	35.038785
+12	a62bda7f4fd74acda0fd5adb37a656e8	Camera 01	БМ Київ>HCMlite>qwe	\N	48.458337	35.031398
+13	99e21c9ce3dd44508cc3d50f1b274e4d	DS-2CD7A26FWD-IZS	БМ Київ>HCMlite>qwe	\N	\N	\N
+14	4336a9912a8046c88e0b090ecbac53e1	IPdome 5	БМ Київ>Система розпізнавання облич	\N	\N	\N
+15	ad30e5cd02c746188af2327deb215245	PEA_cam	БМ Київ>Тривожні кнопки>Тр кнопки	\N	\N	\N
+16	20c70ea6fbcf44fb949066a409722c19	VPan19-2	БМ Київ>Система розпізнавання облич	\N	\N	\N
+17	6b17021782644891b162500b0ce52ca1	VPan19-3	БМ Київ>Система розпізнавання облич	\N	\N	\N
+18	af46f4c98d944bba8c9fce1af3fbec1e	VPan19ds	БМ Київ>Система розпізнавання облич	0.0	48.465367	35.019581
+19	70da876f44a64a9ca5c61adbaab6ca1d	Viatec	БМ Київ>Система розпізнавання облич	\N	\N	\N
+20	03f6186611604ea687d3b76a4051e5d3	iDS-TCM203-A1	БМ Київ>Міст_Дарницький	90.0	48.466424	35.017791
 \.
 
 
 --
--- Name: c_s_app_camera_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Data for Name: c_s_app_feedback; Type: TABLE DATA; Schema: public; Owner: user1
 --
 
-SELECT pg_catalog.setval('public.c_s_app_camera_id_seq', 5, true);
+COPY public.c_s_app_feedback (id, "time", text, user_id) FROM stdin;
+1	2020-03-25 16:53:20.39076+01	test1	\N
+2	2020-03-25 16:54:09.631017+01	qwertyuiopoiuytrewqwertyuioiuytrewqwertyuiuytrewertyuiuytrewertyuiuytrewertyu\r\nertyuiytretyuitrertyuiytrew	\N
+\.
 
 
 --
@@ -815,14 +846,32 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 42	2020-03-09 01:00:00+01	2020-03-09 23:22:00+01	2020-03-11 12:23:02.478016+01
 43	2020-03-09 12:11:00+01	2020-03-10 23:22:00+01	2020-03-12 12:48:45.369294+01
 44	2020-03-11 12:11:00+01	2020-03-11 23:22:00+01	2020-03-13 08:43:16.370076+01
+45	2020-03-09 01:00:00+01	2020-03-10 12:11:00+01	2020-03-14 13:32:01.519883+01
+46	2020-03-16 12:11:00+01	2020-03-17 23:22:00+01	2020-03-17 11:41:22.234422+01
+47	2020-03-16 01:00:00+01	2020-03-18 00:59:00+01	2020-03-20 08:49:15.21664+01
+48	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:52:02.192108+01
+49	2020-03-14 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:53:44.834651+01
+50	2020-03-14 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 09:00:46.298967+01
+51	2020-03-17 11:00:00+01	2020-03-17 12:00:00+01	2020-03-20 09:22:47.0584+01
+52	2020-03-17 15:00:00+01	2020-03-17 16:00:00+01	2020-03-20 10:38:55.947953+01
+53	2020-03-18 01:00:00+01	2020-03-19 00:59:00+01	2020-03-20 10:39:25.358227+01
+54	2020-03-18 01:00:00+01	2020-03-19 00:59:00+01	2020-03-20 10:39:53.223422+01
+55	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 10:41:04.325849+01
+56	2020-03-16 11:00:00+01	2020-03-16 11:01:00+01	2020-03-20 10:41:30.572022+01
+57	2020-03-16 11:00:00+01	2020-03-16 11:01:00+01	2020-03-20 10:42:10.426909+01
+58	2020-03-16 11:00:00+01	2020-03-16 11:01:00+01	2020-03-20 10:43:41.420672+01
+59	2020-03-17 11:00:00+01	2020-03-18 11:00:00+01	2020-03-20 10:44:14.905719+01
+60	2020-03-17 11:00:00+01	2020-03-17 11:15:00+01	2020-03-20 14:20:25.903436+01
+61	2020-03-16 12:00:00+01	2020-03-16 13:00:00+01	2020-03-20 14:21:20.453447+01
+62	2020-03-16 12:00:00+01	2020-03-16 12:15:00+01	2020-03-20 14:22:38.293546+01
+63	2020-03-16 11:00:00+01	2020-03-16 11:15:00+01	2020-03-20 14:25:20.858353+01
+64	2020-03-17 01:00:00+01	2020-03-18 00:59:00+01	2020-03-20 14:27:06.96516+01
+65	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-21 10:07:20.164612+01
+66	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-21 10:09:24.05606+01
+67	2020-03-16 11:00:00+01	2020-03-16 12:00:00+01	2020-03-25 17:04:28.971423+01
+68	2020-03-17 01:00:00+01	2020-03-18 00:59:00+01	2020-03-25 17:05:13.890058+01
+69	2020-03-20 14:00:00+01	2020-03-20 15:00:00+01	2020-03-25 17:12:40.101171+01
 \.
-
-
---
--- Name: c_s_app_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 44, true);
 
 
 --
@@ -910,32 +959,70 @@ COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin
 78	Test_URL:_request_pk:42/cam_id:cam_id5/cam_address:Address5	5	42
 79	Test_URL:_request_pk:43/cam_id:cam_id3/cam_address:Address3	3	43
 80	Test_URL:_request_pk:44/cam_id:cam_id3/cam_address:Address3	3	44
+81	Test_URL:_request_pk:45/cam_id:cam_id5/cam_address:Address5	5	45
+82	Test_URL:_request_pk:45/cam_id:cam_id1/cam_address:Address1	1	45
+83	Test_URL:_request_pk:46/cam_id:cam_id4/cam_address:Address4	4	46
+84	Test_URL:_request_pk:46/cam_id:cam_id5/cam_address:Address5	5	46
+85	\N	6	47
+86	\N	6	48
+87	\N	6	49
+88	rtsp://10.32.2.31:554/openUrl/CiWXlja?beginTime=20200314T020000&endTime=20200317T015900&playBackMode=1	6	50
+89	rtsp://10.32.2.31:554/openUrl/bRwu4Mw?beginTime=20200317T120000&endTime=20200317T130000&playBackMode=1	7	51
+90	\N	8	52
+91	\N	8	53
+92	\N	7	54
+93	\N	11	55
+94	\N	11	56
+95	\N	11	57
+96	\N	6	58
+97	rtsp://10.32.2.31:554/openUrl/0NMpZsI?beginTime=20200317T120000&endTime=20200318T120000&playBackMode=1	6	59
+98	\N	6	60
+99	\N	7	60
+100	\N	10	60
+101	\N	11	60
+102	\N	8	60
+103	\N	9	60
+104	\N	6	61
+105	\N	7	61
+106	\N	10	61
+107	\N	11	61
+108	\N	8	61
+109	\N	9	61
+110	\N	6	62
+111	\N	7	62
+112	\N	10	62
+113	\N	11	62
+114	\N	8	62
+115	\N	9	62
+116	\N	6	63
+120	\N	11	64
+117	rtsp://10.32.2.31:554/openUrl/Wd5qBLG?beginTime=20200317T020000&endTime=20200318T015900&playBackMode=1	6	64
+118	rtsp://10.32.2.31:554/openUrl/WdafMYM?beginTime=20200317T020000&endTime=20200318T015900&playBackMode=1	7	64
+121	rtsp://10.32.2.31:554/openUrl/Wdzeuqs?beginTime=20200317T020000&endTime=20200318T015900&playBackMode=1	8	64
+122	rtsp://10.32.2.31:554/openUrl/WdKiQuY?beginTime=20200317T020000&endTime=20200318T015900&playBackMode=1	9	64
+119	rtsp://10.32.2.31:554/openUrl/WdNqqVG?beginTime=20200317T020000&endTime=20200318T015900&playBackMode=1	10	64
+123	\N	6	65
+124	rtsp://10.32.2.31:554/openUrl/qAlzBC0?beginTime=20200316T020000&endTime=20200317T015900&playBackMode=1	6	66
+125	\N	6	67
+126	\N	7	67
+127	\N	6	68
+131	\N	11	69
+128	rtsp://10.32.2.31:554/openUrl/i1CeUwg?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	6	69
+129	rtsp://10.32.2.31:554/openUrl/i1R03hC?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	7	69
+130	rtsp://10.32.2.31:554/openUrl/i2lWksE?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	10	69
+132	rtsp://10.32.2.31:554/openUrl/i2czzaw?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	8	69
 \.
-
-
---
--- Name: c_s_app_requestcameraurl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 80, true);
 
 
 --
 -- Data for Name: c_s_app_resultdeepstream; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.c_s_app_resultdeepstream (id, "timestamp", car_number, car_brand, car_color, probability, car_photo, camera_id, request_id, car_video) FROM stdin;
-1	2020-01-01 13:05:00+01	12345	BMW	black	97	images/1.png	1	27	videos/0_03.mp4
-2	2020-01-01 14:00:00+01	23456	Audi	red	95	images/2.png	2	27	videos/0_03.mp4
-3	2020-01-02 09:00:00+01	34567	Toyota	white	90	images/3.png	3	27	videos/0_03.mp4
+COPY public.c_s_app_resultdeepstream (id, "timestamp", car_number, car_brand, car_color, car_probability, car_photo, camera_id, request_id, car_video, car_generation, car_model, color_probability) FROM stdin;
+1	2020-01-01 13:05:00+01	12345	BMW	black	97	images/1.png	1	27	videos/0_03.mp4	gen1	model1	91
+2	2020-01-01 14:00:00+01	23456	Audi	red	95	images/2.png	2	27	videos/0_03.mp4	gen2	model2	92
+3	2020-01-02 09:00:00+01	34567	Toyota	white	90	images/3.png	3	27	videos/0_03.mp4	gen3	model3	93
 \.
-
-
---
--- Name: c_s_app_resultdeepstream_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.c_s_app_resultdeepstream_id_seq', 3, true);
 
 
 --
@@ -955,13 +1042,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
-
-
---
 -- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -976,14 +1056,8 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 8	c_s_app	camera
 9	c_s_app	requestcameraurl
 10	c_s_app	resultdeepstream
+11	c_s_app	feedback
 \.
-
-
---
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 10, true);
 
 
 --
@@ -1015,14 +1089,10 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 22	c_s_app	0005_requestcameraurl_request_time	2020-03-11 12:09:28.842237+01
 23	c_s_app	0006_auto_20200311_1110	2020-03-11 12:10:43.175962+01
 24	c_s_app	0002_resultdeepstream_car_video	2020-03-13 13:47:33.439446+01
+25	c_s_app	0003_auto_20200319_1718	2020-03-19 18:19:08.666446+01
+26	c_s_app	0004_auto_20200325_1056	2020-03-25 11:58:24.362845+01
+27	c_s_app	0005_feedback	2020-03-25 15:59:18.126969+01
 \.
-
-
---
--- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 
 
 --
@@ -1034,7 +1104,105 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 
 
 --
--- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 44, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: c_s_app_camera_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.c_s_app_camera_id_seq', 20, true);
+
+
+--
+-- Name: c_s_app_feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public.c_s_app_feedback_id_seq', 2, true);
+
+
+--
+-- Name: c_s_app_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 69, true);
+
+
+--
+-- Name: c_s_app_requestcameraurl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 132, true);
+
+
+--
+-- Name: c_s_app_resultdeepstream_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.c_s_app_resultdeepstream_id_seq', 3, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 11, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1042,7 +1210,7 @@ ALTER TABLE ONLY public.auth_group
 
 
 --
--- Name: auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1050,7 +1218,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1058,7 +1226,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1066,7 +1234,7 @@ ALTER TABLE ONLY public.auth_group
 
 
 --
--- Name: auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1074,7 +1242,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1082,7 +1250,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1090,7 +1258,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 
 --
--- Name: auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1098,7 +1266,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 
 --
--- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user
@@ -1106,7 +1274,7 @@ ALTER TABLE ONLY public.auth_user
 
 
 --
--- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1114,7 +1282,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
--- Name: auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1122,7 +1290,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
--- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user
@@ -1130,7 +1298,7 @@ ALTER TABLE ONLY public.auth_user
 
 
 --
--- Name: c_s_app_camera_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_camera c_s_app_camera_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_camera
@@ -1138,7 +1306,15 @@ ALTER TABLE ONLY public.c_s_app_camera
 
 
 --
--- Name: c_s_app_request_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_feedback c_s_app_feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public.c_s_app_feedback
+    ADD CONSTRAINT c_s_app_feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: c_s_app_request c_s_app_request_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_request
@@ -1146,7 +1322,7 @@ ALTER TABLE ONLY public.c_s_app_request
 
 
 --
--- Name: c_s_app_requestcameraurl_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_requestcameraurl c_s_app_requestcameraurl_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_requestcameraurl
@@ -1154,7 +1330,7 @@ ALTER TABLE ONLY public.c_s_app_requestcameraurl
 
 
 --
--- Name: c_s_app_resultdeepstream_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_resultdeepstream c_s_app_resultdeepstream_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_resultdeepstream
@@ -1162,7 +1338,7 @@ ALTER TABLE ONLY public.c_s_app_resultdeepstream
 
 
 --
--- Name: cache_table_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cache_table cache_table_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cache_table
@@ -1170,7 +1346,7 @@ ALTER TABLE ONLY public.cache_table
 
 
 --
--- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1178,7 +1354,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 
 --
--- Name: django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1186,7 +1362,7 @@ ALTER TABLE ONLY public.django_content_type
 
 
 --
--- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1194,7 +1370,7 @@ ALTER TABLE ONLY public.django_content_type
 
 
 --
--- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_migrations
@@ -1202,7 +1378,7 @@ ALTER TABLE ONLY public.django_migrations
 
 
 --
--- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_session
@@ -1273,6 +1449,13 @@ CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (u
 
 
 --
+-- Name: c_s_app_feedback_user_id_e14c762c; Type: INDEX; Schema: public; Owner: user1
+--
+
+CREATE INDEX c_s_app_feedback_user_id_e14c762c ON public.c_s_app_feedback USING btree (user_id);
+
+
+--
 -- Name: c_s_app_requestcameraurl_camera_id_a1b1a571; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1336,7 +1519,7 @@ CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session U
 
 
 --
--- Name: auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1344,7 +1527,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1352,7 +1535,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1360,7 +1543,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1368,7 +1551,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 
 --
--- Name: auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_groups
@@ -1376,7 +1559,7 @@ ALTER TABLE ONLY public.auth_user_groups
 
 
 --
--- Name: auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1384,7 +1567,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
--- Name: auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auth_user_user_permissions
@@ -1392,7 +1575,15 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
--- Name: c_s_app_requestcamer_camera_id_a1b1a571_fk_c_s_app_c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_feedback c_s_app_feedback_user_id_e14c762c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public.c_s_app_feedback
+    ADD CONSTRAINT c_s_app_feedback_user_id_e14c762c_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_s_app_requestcameraurl c_s_app_requestcamer_camera_id_a1b1a571_fk_c_s_app_c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_requestcameraurl
@@ -1400,7 +1591,7 @@ ALTER TABLE ONLY public.c_s_app_requestcameraurl
 
 
 --
--- Name: c_s_app_requestcamer_request_id_1b352968_fk_c_s_app_r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_requestcameraurl c_s_app_requestcamer_request_id_1b352968_fk_c_s_app_r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_requestcameraurl
@@ -1408,7 +1599,7 @@ ALTER TABLE ONLY public.c_s_app_requestcameraurl
 
 
 --
--- Name: c_s_app_resultdeepst_camera_id_29d0f817_fk_c_s_app_c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_resultdeepstream c_s_app_resultdeepst_camera_id_29d0f817_fk_c_s_app_c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_resultdeepstream
@@ -1416,7 +1607,7 @@ ALTER TABLE ONLY public.c_s_app_resultdeepstream
 
 
 --
--- Name: c_s_app_resultdeepst_request_id_803ad859_fk_c_s_app_r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: c_s_app_resultdeepstream c_s_app_resultdeepst_request_id_803ad859_fk_c_s_app_r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.c_s_app_resultdeepstream
@@ -1424,7 +1615,7 @@ ALTER TABLE ONLY public.c_s_app_resultdeepstream
 
 
 --
--- Name: django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1432,21 +1623,11 @@ ALTER TABLE ONLY public.django_admin_log
 
 
 --
--- Name: django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
