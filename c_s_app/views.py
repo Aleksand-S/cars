@@ -7,6 +7,7 @@ import threading
 import requests
 import schedule
 import xlwt
+from django.db.models import Q
 
 from c_s_app.forms import *
 from c_s_app.models import *
@@ -130,6 +131,7 @@ class CamerasRequest(View):
 
 class CamerasRequestProgress(View):
     def get(self, request, request_id):
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
         # в цикле проверяет статус обработки
         # когда все ссылки обработаны на 100%, то перенаправляет на ссылку с результатом
         form = CamsRequestForm()
@@ -137,7 +139,8 @@ class CamerasRequestProgress(View):
         progress = 0
         return render(request, 'c_s_app/request_progress.html', {'cameras_request_obj': cameras_request_obj,
                                                                  'form': form,
-                                                                 'progress': progress})
+                                                                 'progress': progress,
+                                                                 'top_form': top_form})
 
 def progress(request):
     print('Вход в Django AJAX')
@@ -157,25 +160,29 @@ class RequestResultView(View):
         request_id = 27  # пока для тестирования берем только Request pk=27
         request_obj = get_object_or_404(Request, pk=request_id)
         results_objs = request_obj.resultdeepstream_set.all().order_by('pk')
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
         return render(request,
                       'c_s_app/request_result.html',
-                      {'request_results': results_objs, 'request_obj': request_obj})
+                      {'request_results': results_objs, 'request_obj': request_obj, 'top_form': top_form})
 
 
 class RequestsListView(View):
     def get(self, request):
         request_objs = Request.objects.all().order_by('pk')
-        return render(request, 'c_s_app/requests_list.html', {'request_objs': request_objs})
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        return render(request, 'c_s_app/requests_list.html', {'request_objs': request_objs, 'top_form': top_form})
 
 
 class CarSearchView(View):
     def get(self, request):
         form = CarSearchForm()
-        return render(request, 'c_s_app/car_search.html', {'form':form})
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        return render(request, 'c_s_app/car_search.html', {'form': form, 'top_form': top_form})
 
     def post(self, request):
         form_search = CarSearchForm()
         form_result = CarSearchForm(request.POST)
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
 
         if form_result.is_valid():
             car_num = form_result.cleaned_data['car_number']
@@ -197,9 +204,23 @@ class CarSearchView(View):
                 search_results = search_results.filter(car_color=car_color)
 
             return render(request, 'c_s_app/car_search.html', {'form': form_search,
-                                                               'search_results': search_results})
+                                                               'search_results': search_results,
+                                                               'top_form': top_form})
 
-        return render(request, 'c_s_app/car_search.html', {'form': form_search})
+        form_topsearch = TopBarSearchForm(request.POST)
+        if form_topsearch.is_valid():
+            top_text = form_topsearch.cleaned_data['search_text']
+            first_word = top_text.split(' ')[0]
+            objects_from_db = ResultDeepstream.objects.filter(Q(car_number__contains=first_word)|
+                                                              Q(car_brand__contains=first_word)|
+                                                              Q(car_model__contains=first_word)|
+                                                              Q(car_generation__contains=first_word)|
+                                                              Q(car_color__contains=first_word))
+            return render(request, 'c_s_app/car_search.html', {'form': form_search,
+                                                               'search_results': objects_from_db,
+                                                               'top_form': top_form})
+
+        return render(request, 'c_s_app/car_search.html', {'form': form_search, 'top_form': top_form})
 
 class EmptyView(View):
     def get(self, request):
@@ -244,17 +265,19 @@ def export_results_xls(request, request_id):
 
 class FAQView(View):
     def get(self, request):
-        return render(request, 'c_s_app/faq.html')
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        return render(request, 'c_s_app/faq.html', {'top_form': top_form})
 
 
 class FeedbackView(View):
     def get(self, request):
         form = FeedbackForm()
-        return render(request, 'c_s_app/feedback.html', {'form': form})
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        return render(request, 'c_s_app/feedback.html', {'form': form, 'top_form': top_form})
 
     def post(self, request):
         form_result = FeedbackForm(request.POST)
         if form_result.is_valid():
             text = form_result.cleaned_data['text']
             new_question = Feedback.objects.create(text=text)
-        return render(request, 'c_s_app/feedback.html', {'success': 'Запрос отправлен успешно!'})
+            return render(request, 'c_s_app/feedback.html', {'success': 'Запрос отправлен успешно!'})

@@ -108,6 +108,7 @@
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+                {% block topbar_center %}
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
@@ -119,6 +120,7 @@
                 <div class="input-group">
                     <h1 class="h3 mb-0 text-gray-800">Поиск автомобилей</h1>
                 </div>
+                {% endblock %}
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -374,12 +376,14 @@
 <script src="{% static 'c_s_app/js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'c_s_app/js/demo/chart-pie-demo.js' %}"></script>
 
+{% block js_tables %}
 {#<!-- Page level plugins -->#}
 {#<script src="{% static 'c_s_app/vendor/datatables/jquery.dataTables.js' %}"></script>#}
 {#<script src="{% static 'c_s_app/vendor/datatables/dataTables.bootstrap4.js' %}"></script>#}
 {##}
 {#<!-- Page level custom scripts -->#}
 {#<script src="{% static 'c_s_app/js/demo/datatables-demo.js' %}"></script>#}
+{% endblock %}
 
 </body>
 

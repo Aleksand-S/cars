@@ -1,0 +1,16 @@
+<form action="/car_search/" method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    {% csrf_token %}
+    <div class="input-group">
+
+        {{ top_form.search_text.errors }}
+        <label for="{{ top_form.search_text.id_for_label }}"></label>
+        {{ top_form.search_text }}
+
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+
+    </div>
+</form>

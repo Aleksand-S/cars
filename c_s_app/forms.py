@@ -5,7 +5,6 @@ from c_s_app.models import *
 
 
 class CamsRequestForm(forms.Form):
-
     cams_object = Camera.objects.all().order_by('name')
     cams_choises = [(cam.name, cam.name) for cam in cams_object]
     cams = forms.ChoiceField(choices=cams_choises)
@@ -19,7 +18,6 @@ class CamsRequestForm(forms.Form):
     finish_time = forms.TimeField(
         widget=forms.DateTimeInput(attrs={'type': 'time', 'class': "form-control form-control-user"}))
 
-
     def clean(self):
         cleaned_data = super().clean()
 
@@ -31,17 +29,28 @@ class CamsRequestForm(forms.Form):
         finish_time = cleaned_data.get('finish_time')
         finish = datetime.combine(finish_date, finish_time)
 
-        if finish-start > timedelta(days=3):
+        if finish - start > timedelta(days=3):
             raise forms.ValidationError('Невозможен запрос более трех суток')
 
 
 class CarSearchForm(forms.Form):
-    car_number = forms.CharField(max_length=16, widget=forms.TimeInput(attrs={'placeholder':'рег. номер авто', 'size':'12'}))
-    car_brand = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'марка', 'size':'12'}))
-    car_model = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'модель', 'size':'12'}))
-    car_generation = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'поколение', 'size':'12'}))
-    car_color = forms.CharField(required=False, max_length=32, widget=forms.TimeInput(attrs={'placeholder':'цвет авто', 'size':'12'}))
+    car_number = forms.CharField(max_length=16,
+                                 widget=forms.TextInput(attrs={'placeholder': 'рег. номер авто', 'size': '12'}))
+    car_brand = forms.CharField(required=False, max_length=32,
+                                widget=forms.TextInput(attrs={'placeholder': 'марка', 'size': '12'}))
+    car_model = forms.CharField(required=False, max_length=32,
+                                widget=forms.TextInput(attrs={'placeholder': 'модель', 'size': '12'}))
+    car_generation = forms.CharField(required=False, max_length=32,
+                                     widget=forms.TextInput(attrs={'placeholder': 'поколение', 'size': '12'}))
+    car_color = forms.CharField(required=False, max_length=32,
+                                widget=forms.TextInput(attrs={'placeholder': 'цвет авто', 'size': '12'}))
+
+
+class TopBarSearchForm(forms.Form):
+    search_text = forms.CharField(max_length=32,
+                                  widget=forms.TextInput(attrs={'placeholder': 'Найти...',
+                                                                'class': "form-control bg-light border-0 small"}))
 
 
 class FeedbackForm(forms.Form):
-    text = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'style':'width:100%'}))
+    text = forms.CharField(widget=forms.Textarea(attrs={'rows': '3', 'style': 'width:100%'}))

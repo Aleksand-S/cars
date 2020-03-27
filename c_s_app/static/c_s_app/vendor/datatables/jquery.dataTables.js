@@ -11436,7 +11436,7 @@
 			 *    } );
 			 */
 			// "sEmptyTable": "No data available in table",
-			"sEmptyTable": "в запрошенном отрезке времени обработанных данных нет",
+			"sEmptyTable": "совпадений не найдено",
 
 	
 			/**
