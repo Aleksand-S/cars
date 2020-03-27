@@ -54,10 +54,10 @@ class Mark(models.Model):
     name = models.CharField(max_length=32)
 
 
-# class Generation(models.Model):
-#     name = models.CharField(max_length=16)
-#
-#
+class GenerationList(models.Model):
+    name = models.CharField(max_length=16)
+
+
 # class Model(models.Model):
 #     name = models.CharField(max_length=32)
 #     mark = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True)
