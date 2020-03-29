@@ -157,7 +157,7 @@ def progress(request):
 
 class RequestResultView(View):
     def get(self, request, request_id):
-        request_id = 27  # пока для тестирования берем только Request pk=27
+        request_id = 51  # пока для тестирования берем только Request pk=51
         request_obj = get_object_or_404(Request, pk=request_id)
         results_objs = request_obj.resultdeepstream_set.all().order_by('pk')
         top_form = TopBarSearchForm()  # , 'top_form': top_form
