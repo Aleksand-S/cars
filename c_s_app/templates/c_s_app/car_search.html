@@ -63,17 +63,17 @@
                     </thead>
 
                     <tbody>
-                    {% for resul in search_results %}
+                    {% for result in search_results %}
                         <tr>
-                            <td>{{ resul.timestamp|date:"d.m.Y h:i" }}</td>
-                            <td>{{ resul.camera.address }}</td>
-                            <td>{{ resul.car_number }}</td>
-                            <td>{{ resul.car_brand }}</td>
-                            <td>{{ resul.car_model}}</td>
-                            <td>{{ resul.car_generation }}</td>
-                            <td>{{ resul.car_probability }}</td>
-                            <td>{{ resul.car_color }}</td>
-                            <td>{{ resul.color_probability }}</td>
+                            <td>{{ result.timestamp|date:"d.m.Y h:i:s" }}</td>
+                            <td>{{ result.camera.pk }} {{ result.camera.address }}</td>
+                            <td>{{ result.car_number }}</td>
+                            <td>{{ result.car_obj.model.mark.name }}</td>
+                            <td>{{ result.car_obj.model.name}}</td>
+                            <td>{{ result.car_obj.name.name }}</td>
+                            <td>{{ result.car_probability }}</td>
+                            <td>{{ result.car_color.name }}</td>
+                            <td>{{ result.color_probability }}</td>
                             <td>
 
                                 <a class="myLinkModal" href="#">фото</a>

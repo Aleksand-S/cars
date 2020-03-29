@@ -195,18 +195,20 @@ class CarSearchView(View):
             if len(car_num) != 0:
                 search_results = search_results.filter(car_number=car_num)
             if len(car_brand) != 0:
-                search_results = search_results.filter(car_brand=car_brand)
+                mark_id = Mark.objects.get(name=car_brand).pk
+                search_results = search_results.filter(car_obj__model__mark=mark_id)
             if len(car_model) != 0:
-                search_results = search_results.filter(car_model=car_model)
+                search_results = search_results.filter(car_obj__model__name=car_model)
             if len(car_gen) != 0:
-                search_results = search_results.filter(car_generation=car_gen)
+                search_results = search_results.filter(car_obj__name=car_gen)
             if len(car_color) != 0:
-                search_results = search_results.filter(car_color=car_color)
+                search_results = search_results.filter(car_color__name=car_color)
 
             return render(request, 'c_s_app/car_search.html', {'form': form_search,
                                                                'search_results': search_results,
                                                                'top_form': top_form})
 
+# !!!!!!!!! ИСПРАВИТЬ ПОИСК, Т.К. ИЗМЕНИЛАСЬ ТАБЛИЦА В БД
         form_topsearch = TopBarSearchForm(request.POST)
         if form_topsearch.is_valid():
             top_text = form_topsearch.cleaned_data['search_text']
@@ -249,6 +251,7 @@ def export_results_xls(request, request_id):
     font_style = xlwt.XFStyle()
 
     # for testing we get all objects with request_id=27
+# !!!!!!!!! ИСПРАВИТЬ ПОИСК, Т.К. ИЗМЕНИЛАСЬ ТАБЛИЦА В БД
     rows = ResultDeepstream.objects.filter(request_id=request_id).values_list('pk', 'timestamp', 'camera__address', 'car_number',
                                                                       'car_brand', 'car_model', 'car_generation',
                                                                       'car_probability', 'car_color',

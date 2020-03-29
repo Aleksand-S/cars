@@ -71,14 +71,24 @@
                             {% for result in request_results %}
                                 <tr>
                                     <td>{{ result.pk }}</td>
-                                    <td>{{ result.timestamp|date:"d.m.Y h:i" }}</td>
-                                    <td>{{ result.camera.address }}</td>
+{#                                    <td>{{ result.timestamp|date:"d.m.Y h:i" }}</td>#}
+{#                                    <td>{{ result.camera.address }}</td>#}
+{#                                    <td>{{ result.car_number }}</td>#}
+{#                                    <td>{{ result.car_brand }}</td>#}
+{#                                    <td>{{ result.car_model }}</td>#}
+{#                                    <td>{{ result.car_generation }}</td>#}
+{#                                    <td>{{ result.car_probability }}</td>#}
+{#                                    <td>{{ result.car_color }}</td>#}
+{#                                    <td>{{ result.color_probability }}</td>#}
+
+                                    <td>{{ result.timestamp|date:"d.m.Y h:i:s" }}</td>
+                                    <td>{{ result.camera.pk }} {{ result.camera.address }}</td>
                                     <td>{{ result.car_number }}</td>
-                                    <td>{{ result.car_brand }}</td>
-                                    <td>{{ result.car_model }}</td>
-                                    <td>{{ result.car_generation }}</td>
+                                    <td>{{ result.car_obj.model.mark.name }}</td>
+                                    <td>{{ result.car_obj.model.name}}</td>
+                                    <td>{{ result.car_obj.name.name }}</td>
                                     <td>{{ result.car_probability }}</td>
-                                    <td>{{ result.car_color }}</td>
+                                    <td>{{ result.car_color.name }}</td>
                                     <td>{{ result.color_probability }}</td>
 
                                     <td>

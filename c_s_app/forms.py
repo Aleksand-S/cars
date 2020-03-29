@@ -34,7 +34,7 @@ class CamsRequestForm(forms.Form):
 
 
 class CarSearchForm(forms.Form):
-    car_number = forms.CharField(max_length=16,
+    car_number = forms.CharField(max_length=16, required=False,
                                  widget=forms.TextInput(attrs={'placeholder': 'рег. номер авто', 'size': '12'}))
     car_brand = forms.CharField(required=False, max_length=32,
                                 widget=forms.TextInput(attrs={'placeholder': 'марка', 'size': '12'}))
