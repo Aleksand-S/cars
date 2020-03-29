@@ -58,11 +58,11 @@ class GenerationList(models.Model):
     name = models.CharField(max_length=16)
 
 
-# class Model(models.Model):
-#     name = models.CharField(max_length=32)
-#     mark = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True)
-#
-#
-# class GenerationCar(models.Model):
-#     model = models.ForeignKey(Model, on_delete=models.CASCADE, null=True)
-#     name = models.ForeignKey(Generation, on_delete=models.CASCADE, null=True)
+class Model(models.Model):
+    name = models.CharField(max_length=32)
+    mark = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True)
+
+
+class Generation(models.Model):
+    model = models.ForeignKey(Model, on_delete=models.CASCADE, null=True)
+    name = models.ForeignKey(GenerationList, on_delete=models.CASCADE, null=True)
