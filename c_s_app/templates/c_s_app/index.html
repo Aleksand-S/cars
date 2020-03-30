@@ -20,6 +20,10 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'c_s_app/css/sb-admin-2.css' %}" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    {% block styles_for_currnent_page %}
+    {% endblock %}
+
 </head>
 
 <body id="page-top">
@@ -360,17 +364,17 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="{% static 'c_s_app/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'c_s_app/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/jquery/jquery.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{% static 'c_s_app/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/jquery-easing/jquery.easing.js' %}"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="{% static 'c_s_app/js/sb-admin-2.js' %}"></script>
 
 <!-- Page level plugins -->
-<script src="{% static 'c_s_app/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'c_s_app/vendor/chart.js/Chart.js' %}"></script>
 
 <!-- Page level custom scripts -->
 <script src="{% static 'c_s_app/js/demo/chart-area-demo.js' %}"></script>

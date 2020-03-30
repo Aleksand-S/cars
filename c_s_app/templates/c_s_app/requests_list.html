@@ -1,5 +1,9 @@
 {% extends 'c_s_app/index.html' %}
 
+{% block styles_for_currnent_page %}
+    {% include 'c_s_app/bases/styles_for_currnent_page.html' %}
+{% endblock %}
+
 {% block topbar_center %}
     {% include 'c_s_app/bases/searchbar.html' %}
 {% endblock %}
@@ -36,14 +40,14 @@
 
                     <tbody>
 
-                    {% for request in request_objs %}
+                    {% for request in request_objs|dictsort:"pk" reversed %}
                         <tr>
                             <td id="request_id"><a href="/request_result/{{ request.pk }}">{{ request.pk }}</a></td>
                             <td>{{ request.request_time|date:"d.m.Y" }}</td>
                             <td>{{ request.request_time|date:"h:i:s" }}</td>
                             <td>
-                                {% for cam in request.cameras.all %}
-                                    <a>{{ cam.address }}</a><br>
+                                {% for cam in request.cameras.all|dictsort:"pk" %}
+                                    <a>{{ cam.pk }}-{{ cam.address }}</a><br>
                                 {% endfor %}
                             </td>
                             <td>{{ request.start|date:"d.m.Y h:i" }}</td>
@@ -58,5 +62,9 @@
 
         </div>
     </div>
+{% endblock %}
+
+{% block js_tables %}
+    {% include 'c_s_app/bases/js_plugs.html' %}
 {% endblock %}
 

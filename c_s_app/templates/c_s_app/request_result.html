@@ -1,5 +1,9 @@
 {% extends 'c_s_app/index.html' %}
 
+{% block styles_for_currnent_page %}
+    {% include 'c_s_app/bases/styles_for_currnent_page.html' %}
+{% endblock %}
+
 {% block topbar_center %}
     {% include 'c_s_app/bases/searchbar.html' %}
 {% endblock %}
@@ -51,7 +55,7 @@
                                 <th>Номер</th>
                                 <th>Марка</th>
                                 <th>Модель</th>
-                                <th>Поколение</th>
+                                <th>Пок.</th>
                                 <th>%</th>
                                 <th>Цвет</th>
                                 <th>%</th>
@@ -142,4 +146,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block js_tables %}
+    {% include 'c_s_app/bases/js_plugs.html' %}
 {% endblock %}

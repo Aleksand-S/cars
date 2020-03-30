@@ -168,7 +168,7 @@ class RequestResultView(View):
 
 class RequestsListView(View):
     def get(self, request):
-        request_objs = Request.objects.all().order_by('pk')
+        request_objs = Request.objects.all().order_by('-pk')
         top_form = TopBarSearchForm()  # , 'top_form': top_form
         return render(request, 'c_s_app/requests_list.html', {'request_objs': request_objs, 'top_form': top_form})
 
