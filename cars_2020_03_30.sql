@@ -994,11 +994,6 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.c_s_app_camera (id, cam_id, name, address, azimuth, lat, long) FROM stdin;
-1	cam_id1	Camera1	Address1	\N	\N	\N
-2	cam_id2	Camera2	Address2	\N	\N	\N
-3	cam_id3	Camera3	Address3	\N	\N	\N
-4	cam_id4	Camera4	Address4	\N	\N	\N
-5	cam_id5	Camera5	Address5	\N	\N	\N
 6	57b0b9bf6efd4881957cb250c9a1a26f	10.100.0.100	БМ Київ>Обзорки_перекрестки	\N	48.458986	35.042099
 7	336479e7446047fc99bddea6281173fc	10.100.0.103	БМ Київ>Обзорки_перекрестки	\N	48.458032	35.043798
 8	c2e92ed0aba44bb89f8a7b155643071b	10.9.1.46	БМ Київ>Обзорки_перекрестки	\N	48.465264	35.044089
@@ -5187,51 +5182,8 @@ COPY public.c_s_app_model (id, name, mark_id) FROM stdin;
 --
 
 COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
-2	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
 3	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
 4	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-5	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-6	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-7	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-8	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-9	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-10	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-11	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-12	2006-10-25 16:30:00+02	2006-10-25 16:31:00+02	2020-03-11 12:10:43.16513+01
-13	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-14	2006-10-25 16:30:00+02	2006-10-25 16:31:00+02	2020-03-11 12:10:43.16513+01
-15	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-16	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-17	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-18	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-19	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-20	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-21	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-22	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-23	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-24	2020-01-01 15:30:00+01	2020-01-02 15:30:00+01	2020-03-11 12:10:43.16513+01
-25	2020-01-01 13:00:00+01	2020-01-02 13:00:00+01	2020-03-11 12:10:43.16513+01
-26	2020-01-01 13:00:00+01	2020-01-02 13:00:00+01	2020-03-11 12:10:43.16513+01
-27	2020-01-01 13:00:00+01	2020-01-02 13:00:00+01	2020-03-11 12:10:43.16513+01
-28	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-29	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-30	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-31	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-32	2006-10-25 16:30:00+02	2006-10-25 16:31:00+02	2020-03-11 12:10:43.16513+01
-33	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-34	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-35	2006-11-01 15:30:00+01	2006-11-01 15:31:00+01	2020-03-11 12:10:43.16513+01
-36	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-37	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-38	2020-03-09 01:00:00+01	2020-03-10 01:00:00+01	2020-03-11 12:10:43.16513+01
-39	2020-03-09 01:00:00+01	2020-03-11 00:59:00+01	2020-03-11 12:10:43.16513+01
-40	2020-03-09 01:00:00+01	2020-03-10 12:11:00+01	2020-03-11 12:10:43.16513+01
-41	2020-03-09 12:11:00+01	2020-03-10 01:00:00+01	2020-03-11 12:11:37.130382+01
-42	2020-03-09 01:00:00+01	2020-03-09 23:22:00+01	2020-03-11 12:23:02.478016+01
-43	2020-03-09 12:11:00+01	2020-03-10 23:22:00+01	2020-03-12 12:48:45.369294+01
-44	2020-03-11 12:11:00+01	2020-03-11 23:22:00+01	2020-03-13 08:43:16.370076+01
-45	2020-03-09 01:00:00+01	2020-03-10 12:11:00+01	2020-03-14 13:32:01.519883+01
-46	2020-03-16 12:11:00+01	2020-03-17 23:22:00+01	2020-03-17 11:41:22.234422+01
 47	2020-03-16 01:00:00+01	2020-03-18 00:59:00+01	2020-03-20 08:49:15.21664+01
 48	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:52:02.192108+01
 49	2020-03-14 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:53:44.834651+01
@@ -5263,90 +5215,6 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 --
 
 COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin;
-2	\N	5	2
-66	Test_URL:_request_pk:33/cam_id:cam_id5/cam_address:Address5	5	33
-1	Test1	3	2
-3	\N	2	3
-4	\N	3	3
-5	\N	5	4
-6	\N	3	4
-7	\N	4	5
-8	\N	3	5
-9	\N	1	6
-10	Test1	3	6
-11	\N	1	7
-12	\N	3	7
-13	\N	4	8
-14	\N	5	8
-15	\N	3	9
-16	\N	5	9
-17	\N	2	10
-18	cam_id2Test_URL	2	11
-19	cam_id4Test_URL	4	11
-20	\N	5	12
-21	\N	3	12
-22	Test_URL:_request_pk:13/cam_id:cam_id2/cam_address:Address2	2	13
-23	Test_URL:_request_pk:13/cam_id:cam_id4/cam_address:Address4	4	13
-24	Test_URL:_request_pk:14/cam_id:cam_id4/cam_address:Address4	4	14
-25	Test_URL:_request_pk:14/cam_id:cam_id2/cam_address:Address2	2	14
-26	Test_URL:_request_pk:15/cam_id:cam_id1/cam_address:Address1	1	15
-27	Test_URL:_request_pk:15/cam_id:cam_id4/cam_address:Address4	4	15
-28	Test_URL:_request_pk:16/cam_id:cam_id3/cam_address:Address3	3	16
-29	Test_URL:_request_pk:17/cam_id:cam_id1/cam_address:Address1	1	17
-30	Test_URL:_request_pk:17/cam_id:cam_id3/cam_address:Address3	3	17
-31	Test_URL:_request_pk:18/cam_id:cam_id3/cam_address:Address3	3	18
-32	Test_URL:_request_pk:18/cam_id:cam_id5/cam_address:Address5	5	18
-33	Test_URL:_request_pk:19/cam_id:cam_id2/cam_address:Address2	2	19
-34	Test_URL:_request_pk:19/cam_id:cam_id4/cam_address:Address4	4	19
-35	Test_URL:_request_pk:20/cam_id:cam_id1/cam_address:Address1	1	20
-36	Test_URL:_request_pk:20/cam_id:cam_id3/cam_address:Address3	3	20
-37	Test_URL:_request_pk:20/cam_id:cam_id5/cam_address:Address5	5	20
-38	Test_URL:_request_pk:21/cam_id:cam_id1/cam_address:Address1	1	21
-39	Test_URL:_request_pk:21/cam_id:cam_id3/cam_address:Address3	3	21
-40	Test_URL:_request_pk:21/cam_id:cam_id5/cam_address:Address5	5	21
-41	Test_URL:_request_pk:22/cam_id:cam_id1/cam_address:Address1	1	22
-42	Test_URL:_request_pk:22/cam_id:cam_id3/cam_address:Address3	3	22
-43	Test_URL:_request_pk:22/cam_id:cam_id5/cam_address:Address5	5	22
-44	Test_URL:_request_pk:23/cam_id:cam_id1/cam_address:Address1	1	23
-45	Test_URL:_request_pk:23/cam_id:cam_id3/cam_address:Address3	3	23
-46	Test_URL:_request_pk:23/cam_id:cam_id5/cam_address:Address5	5	23
-47	Test_URL:_request_pk:24/cam_id:cam_id1/cam_address:Address1	1	24
-48	Test_URL:_request_pk:24/cam_id:cam_id2/cam_address:Address2	2	24
-49	Test_URL:_request_pk:24/cam_id:cam_id3/cam_address:Address3	3	24
-50	Test_URL:_request_pk:25/cam_id:cam_id1/cam_address:Address1	1	25
-51	Test_URL:_request_pk:25/cam_id:cam_id2/cam_address:Address2	2	25
-52	Test_URL:_request_pk:25/cam_id:cam_id3/cam_address:Address3	3	25
-53	Test_URL:_request_pk:26/cam_id:cam_id1/cam_address:Address1	1	26
-54	Test_URL:_request_pk:26/cam_id:cam_id2/cam_address:Address2	2	26
-55	Test_URL:_request_pk:26/cam_id:cam_id3/cam_address:Address3	3	26
-56	Test_URL:_request_pk:27/cam_id:cam_id1/cam_address:Address1	1	27
-57	Test_URL:_request_pk:27/cam_id:cam_id2/cam_address:Address2	2	27
-58	Test_URL:_request_pk:27/cam_id:cam_id3/cam_address:Address3	3	27
-59	Test_URL:_request_pk:28/cam_id:cam_id1/cam_address:Address1	1	28
-60	Test_URL:_request_pk:29/cam_id:cam_id1/cam_address:Address1	1	29
-61	Test_URL:_request_pk:30/cam_id:cam_id2/cam_address:Address2	2	30
-62	Test_URL:_request_pk:31/cam_id:cam_id5/cam_address:Address5	5	31
-63	Test_URL:_request_pk:32/cam_id:cam_id5/cam_address:Address5	5	32
-65	Test_URL:_request_pk:33/cam_id:cam_id3/cam_address:Address3	3	33
-64	Test_URL:_request_pk:33/cam_id:cam_id1/cam_address:Address1	1	33
-67	Test_URL:_request_pk:34/cam_id:cam_id2/cam_address:Address2	2	34
-68	Test_URL:_request_pk:34/cam_id:cam_id4/cam_address:Address4	4	34
-69	\N	5	35
-70	\N	5	36
-71	\N	1	37
-72	\N	4	38
-73	\N	4	39
-74	\N	2	39
-75	\N	1	39
-76	\N	5	40
-77	\N	3	41
-78	Test_URL:_request_pk:42/cam_id:cam_id5/cam_address:Address5	5	42
-79	Test_URL:_request_pk:43/cam_id:cam_id3/cam_address:Address3	3	43
-80	Test_URL:_request_pk:44/cam_id:cam_id3/cam_address:Address3	3	44
-81	Test_URL:_request_pk:45/cam_id:cam_id5/cam_address:Address5	5	45
-82	Test_URL:_request_pk:45/cam_id:cam_id1/cam_address:Address1	1	45
-83	Test_URL:_request_pk:46/cam_id:cam_id4/cam_address:Address4	4	46
-84	Test_URL:_request_pk:46/cam_id:cam_id5/cam_address:Address5	5	46
 85	\N	6	47
 86	\N	6	48
 87	\N	6	49

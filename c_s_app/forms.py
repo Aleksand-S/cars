@@ -5,8 +5,8 @@ from c_s_app.models import *
 
 
 class CamsRequestForm(forms.Form):
-    cams_object = Camera.objects.all().order_by('name')
-    cams_choises = [(cam.name, cam.name) for cam in cams_object]
+    cams_object = Camera.objects.all().order_by('pk')
+    cams_choises = [(cam.address, str(cam.pk)+'-'+cam.address) for cam in cams_object]
     cams = forms.ChoiceField(choices=cams_choises)
 
     start_date = forms.DateField(

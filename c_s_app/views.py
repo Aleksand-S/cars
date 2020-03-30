@@ -185,15 +185,15 @@ class CarSearchView(View):
         top_form = TopBarSearchForm()  # , 'top_form': top_form
 
         if form_result.is_valid():
-            car_num = form_result.cleaned_data['car_number']
-            car_brand = form_result.cleaned_data['car_brand']
-            car_model = form_result.cleaned_data['car_model']
-            car_gen = form_result.cleaned_data['car_generation']
-            car_color = form_result.cleaned_data['car_color']
+            car_num = form_result.cleaned_data['car_number'].upper()
+            car_brand = form_result.cleaned_data['car_brand'].lower()
+            car_model = form_result.cleaned_data['car_model'].lower()
+            car_gen = form_result.cleaned_data['car_generation'].lower()
+            car_color = form_result.cleaned_data['car_color'].lower()
 
             search_results = ResultDeepstream.objects.all()
             if len(car_num) != 0:
-                search_results = search_results.filter(car_number=car_num)
+                search_results = search_results.filter(car_number__contains=car_num)
             if len(car_brand) != 0:
                 mark_id = Mark.objects.get(name=car_brand).pk
                 search_results = search_results.filter(car_obj__model__mark=mark_id)
