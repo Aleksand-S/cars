@@ -184,6 +184,22 @@ class CarSearchView(View):
         form_result = CarSearchForm(request.POST)
         top_form = TopBarSearchForm()  # , 'top_form': top_form
 
+
+        form_topsearch = TopBarSearchForm(request.POST)
+        if form_topsearch.is_valid():
+            top_text = form_topsearch.cleaned_data['search_text']
+            first_word = top_text.split(' ')[0].lower()
+            objects_from_db = ResultDeepstream.objects.filter(Q(car_number__contains=first_word.upper())
+                                                              | Q(car_obj__model__mark__name__contains=first_word)
+                                                              | Q(car_obj__model__name__contains=first_word)
+                                                              | Q(car_obj__name__name__contains=first_word)
+                                                              | Q(car_color__name__contains=first_word)
+                                                              )
+
+            return render(request, 'c_s_app/car_search.html', {'form': form_search,
+                                                               'search_results': objects_from_db,
+                                                               'top_form': top_form})
+
         if form_result.is_valid():
             car_num = form_result.cleaned_data['car_number'].upper()
             car_brand = form_result.cleaned_data['car_brand'].lower()
@@ -195,8 +211,7 @@ class CarSearchView(View):
             if len(car_num) != 0:
                 search_results = search_results.filter(car_number__contains=car_num)
             if len(car_brand) != 0:
-                mark_id = Mark.objects.get(name=car_brand).pk
-                search_results = search_results.filter(car_obj__model__mark=mark_id)
+                search_results = search_results.filter(car_obj__model__mark__name=car_brand)
             if len(car_model) != 0:
                 search_results = search_results.filter(car_obj__model__name=car_model)
             if len(car_gen) != 0:
@@ -206,20 +221,6 @@ class CarSearchView(View):
 
             return render(request, 'c_s_app/car_search.html', {'form': form_search,
                                                                'search_results': search_results,
-                                                               'top_form': top_form})
-
-# !!!!!!!!! ИСПРАВИТЬ ПОИСК, Т.К. ИЗМЕНИЛАСЬ ТАБЛИЦА В БД
-        form_topsearch = TopBarSearchForm(request.POST)
-        if form_topsearch.is_valid():
-            top_text = form_topsearch.cleaned_data['search_text']
-            first_word = top_text.split(' ')[0]
-            objects_from_db = ResultDeepstream.objects.filter(Q(car_number__contains=first_word)|
-                                                              Q(car_brand__contains=first_word)|
-                                                              Q(car_model__contains=first_word)|
-                                                              Q(car_generation__contains=first_word)|
-                                                              Q(car_color__contains=first_word))
-            return render(request, 'c_s_app/car_search.html', {'form': form_search,
-                                                               'search_results': objects_from_db,
                                                                'top_form': top_form})
 
         return render(request, 'c_s_app/car_search.html', {'form': form_search, 'top_form': top_form})
