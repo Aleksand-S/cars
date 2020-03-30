@@ -77,7 +77,7 @@ class CamerasRequest(View):
 
             cams_list = request.POST.getlist('cams')  # there may be a check on the number (20) of cameras
 
-            cameras_array = [Camera.objects.get(name=cam) for cam in cams_list]
+            cameras_array = [Camera.objects.get(pk=cam) for cam in cams_list]
             request_object = Request.objects.create(start=start, finish=finish)
 
             # API request for URL
