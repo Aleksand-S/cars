@@ -230,7 +230,7 @@ def export_results_xls(request, request_id):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['ID', 'Время', 'Адрес', 'Номер', 'Марка', 'Модель', 'Поколение', '%', 'Цвет', '%']
+    columns = ['ID', 'Время', 'ID камеры', 'Адрес', 'Номер', 'Марка', 'Модель', 'Поколение', '%', 'Цвет', '%']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
@@ -240,9 +240,12 @@ def export_results_xls(request, request_id):
 
     # for testing we get all objects with request_id=27
 # !!!!!!!!! ИСПРАВИТЬ ПОИСК, Т.К. ИЗМЕНИЛАСЬ ТАБЛИЦА В БД
-    rows = ResultDeepstream.objects.filter(request_id=request_id).values_list('pk', 'timestamp', 'camera__address', 'car_number',
-                                                                      'car_brand', 'car_model', 'car_generation',
-                                                                      'car_probability', 'car_color',
+    rows = ResultDeepstream.objects.filter(request_id=request_id).values_list('pk', 'timestamp', 'camera_id', 'camera__address', 'car_number',
+                                                                      # 'car_brand', 'car_model', 'car_generation',
+                                                                      'car_obj__model__mark__name', 'car_obj__model__name', 'car_obj__name__name',
+                                                                      'car_probability',
+                                                                      # 'car_color',
+                                                                      'car_color__name',
                                                                       'color_probability')
     rows = [[x.strftime("%Y-%m-%d %H:%M") if isinstance(x, datetime) else x for x in row] for row in rows]
     for row in rows:
