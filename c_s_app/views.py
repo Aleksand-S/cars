@@ -142,19 +142,6 @@ class CamerasRequestProgress(View):
                                                                  'progress': progress,
                                                                  'top_form': top_form})
 
-def progress(request):
-    print('Вход в Django AJAX')
-    request_pk = request.GET.get('request_pk', None)
-    # берем статус Запроса из БД и отправляем в JS
-# ----------- temporary block for testing Progress AJAX -------------------------------
-    # симуляция прогресса
-    curr_progress = request.GET.get('curr_progress', None)
-    sleep(1)
-    prgrss = 100
-    data = {'progress': prgrss}
-    return JsonResponse(data)
-
-
 class RequestResultView(View):
     def get(self, request, request_id):
         request_id = 51  # пока для тестирования берем только Request pk=51
@@ -285,3 +272,10 @@ class FeedbackView(View):
             text = form_result.cleaned_data['text']
             new_question = Feedback.objects.create(text=text)
             return render(request, 'c_s_app/feedback.html', {'success': 'Запрос отправлен успешно!'})
+
+
+class CarRegistryView(View):
+    def get(self, request):
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        cars = Generation.objects.all()
+        return render(request, 'c_s_app/cars.html', {'cars': cars, 'top_form': top_form})

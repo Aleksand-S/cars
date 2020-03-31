@@ -32,6 +32,16 @@ class CamsRequestForm(forms.Form):
         if finish - start > timedelta(days=3):
             raise forms.ValidationError('Невозможен запрос более трех суток')
 
+        if start > finish:
+            raise forms.ValidationError('Время начала позже времени окончания')
+
+        if start == finish:
+            raise forms.ValidationError('Временной диапазон равен нулю')
+
+        now = datetime.now()
+        if finish > now:
+            raise forms.ValidationError('Дата окончания не может быть больше текущей даты')
+
 
 class CarSearchForm(forms.Form):
     car_number = forms.CharField(max_length=16, required=False,

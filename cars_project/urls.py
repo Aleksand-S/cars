@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from c_s_app.views import *
+from c_s_app.pylib.ajax_progress import progress
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('empty/', EmptyView.as_view()),
     path('faq/', FAQView.as_view()),
     path('feedback/', FeedbackView.as_view()),
+    path('cars/', CarRegistryView.as_view()),
 
 
     path('ajax/progress/', progress),

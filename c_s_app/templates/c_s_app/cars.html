@@ -1,0 +1,62 @@
+{% extends 'c_s_app/index.html' %}
+
+{% block styles_for_currnent_page %}
+    {% include 'c_s_app/bases/styles_for_currnent_page.html' %}
+{% endblock %}
+
+{% block topbar_center %}
+    {% include 'c_s_app/bases/searchbar.html' %}
+{% endblock %}
+
+<!-- DataTales Example -->
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+
+            <a href="/car_search" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                <span class="text">Поиск автомобилей по параметрам</span>
+            </a>
+
+        </div>
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Марка</th>
+                        <th>Модель</th>
+                        <th>Поколение</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for car in cars %}
+                        <tr>
+                            <td>{{ car.pk }}</td>
+                            <td>{{ car.model.mark.name }}</td>
+                            <td>{{ car.model.name }}</td>
+                            <td>{{ car.name.name }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_tables %}
+    {% include 'c_s_app/bases/js_plugs.html' %}
+{% endblock %}
+
