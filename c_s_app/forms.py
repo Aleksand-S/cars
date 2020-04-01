@@ -7,6 +7,7 @@ from c_s_app.models import *
 class CamsRequestForm(forms.Form):
     cams_object = Camera.objects.all().order_by('pk')
     cams_choises = [(cam.pk, str(cam.pk)+'-'+cam.address) for cam in cams_object]
+    # cams_choises = [('', 'Выбрать камеру'), ('', '----------')] + cams_choises
     cams = forms.ChoiceField(choices=cams_choises)
 
     start_date = forms.DateField(
@@ -64,3 +65,17 @@ class TopBarSearchForm(forms.Form):
 
 class FeedbackForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea(attrs={'rows': '3', 'style': 'width:100%'}))
+
+
+# class CarsRegistryForm(forms.Form):
+#     marks_objects = Mark.objects.all().order_by('name')
+#     marks_choises = [(mark.pk, mark.name) for mark in marks_objects]
+#     marks = forms.ChoiceField(choices=marks_choises)
+#
+#     models_objects = Model.objects.all().order_by('name')
+#     models_choises = [(model.pk, model.name) for model in models_objects]
+#     models = forms.ChoiceField(choices=models_choises)
+#
+#     gen_objects = GenerationList.objects.all()
+#     gen_choises = [(gen.pk, gen.name) for gen in gen_objects]
+#     gens = forms.ChoiceField(choices=gen_choises)

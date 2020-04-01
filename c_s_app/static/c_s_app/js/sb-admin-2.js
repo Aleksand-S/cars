@@ -130,8 +130,6 @@
   //     });
   //   });
   // });
-
-
   $(document).ready(function() {
     $('a.myLinkModal').click( function(event){
       event.preventDefault();
@@ -151,6 +149,15 @@
       });
     });
   });
+
+
+  // // ajax for car models
+  // let modelsField = $('#id_models');
+
+
+
+
+
 
 
 

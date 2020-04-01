@@ -29,7 +29,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>Марка</th>
+                        <th>Модель</th>
 {#                        <th>Марка</th>#}
 {#                        <th>Модель</th>#}
 {#                        <th>Поколение</th>#}
@@ -41,7 +41,8 @@
                     {% for car in cars %}
 
                         <tr>
-                            <td><a href="/models/{{ car.pk }}">{{ car.name }}</a></td>
+                            <td><a href="/generations/{{ car.pk }}">{{ car.name }}</a></td>
+
                         </tr>
                     {% endfor %}
 

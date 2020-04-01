@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from c_s_app.views import *
-from c_s_app.pylib.ajax_progress import progress
+from c_s_app.pylib.ajax import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,10 +31,12 @@ urlpatterns = [
     path('empty/', EmptyView.as_view()),
     path('faq/', FAQView.as_view()),
     path('feedback/', FeedbackView.as_view()),
-    path('cars/', CarRegistryView.as_view()),
-
+    path('cars/', CarRegistryView.as_view(), name='cars'),
+    path('models/<int:mark_id>/', ModelRegistryView.as_view(), name='models'),
+    path('generations/<int:model_id>/', GenRegistryView.as_view(), name='generations'),
 
     path('ajax/progress/', progress),
+    path('ajax/models', load_models),
     path('export/xls/<int:request_id>', export_results_xls, name='export_users_xls'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

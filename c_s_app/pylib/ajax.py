@@ -1,6 +1,7 @@
 from time import sleep
 from django.http import JsonResponse
 from datetime import datetime
+from c_s_app.models import *
 
 
 def progress(request):
@@ -15,3 +16,12 @@ def progress(request):
     data = {'progress': prgrss}
     print('Выход из AJAX', datetime.now())
     return JsonResponse(data)
+
+
+def load_models(request):
+    mark_id = request.GET.get('marks')
+    mark_id = 1
+    model_objs = Model.objects.filter(mark_id=mark_id).order_by('name')
+    dict_models = [(model.pk, model.name) for model in model_objs]
+    print('AJAX-load_models:\n', dict_models)
+    return JsonResponse(dict_models)

@@ -1,4 +1,7 @@
 from time import sleep
+
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
 from requests.auth import HTTPDigestAuth
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -277,8 +280,64 @@ class FeedbackView(View):
             return render(request, 'c_s_app/feedback.html', {'success': 'Запрос отправлен успешно!'})
 
 
+# class CarRegistryView(View):
+#     def get(self, request):
+#         top_form = TopBarSearchForm()  # , 'top_form': top_form
+#         cars = Generation.objects.all()
+#         cars_reg = CarsRegistryForm()
+#         marks_list = Mark.objects.all()
+#         return render(request, 'c_s_app/cars.html', {
+#                                                      # 'cars': cars,
+#                                                      'top_form': top_form,
+#                                                      'cars_reg': cars_reg,
+#                                                     'marks_list': marks_list
+#                                                      })
+#     def post(self, request):
+#         top_form = TopBarSearchForm()  # , 'top_form': top_form
+#         cars_reg = CarsRegistryForm()
+#         cars_reg_result = CarsRegistryForm(request.POST)
+#         if cars_reg_result.is_valid():
+#             mark_pk = cars_reg_result.cleaned_data['marks']  # returns marks pk
+#             model_pk = cars_reg_result.cleaned_data['models']  # returns model pk
+#             gen_pk = cars_reg_result.cleaned_data['gens']  # returns model pk
+#             print(mark_pk, model_pk, gen_pk)
+#
+#             search_results = Generation.objects.all()
+#             if len(mark_pk) != 0:
+#                 search_results = search_results.filter(model__mark__pk=mark_pk)
+#             if len(model_pk) != 0:
+#                 search_results = search_results.filter(model__pk=model_pk)
+#             if len(gen_pk) != 0:
+#                 search_results = search_results.filter(name__pk=gen_pk)
+#
+#             return render(request, 'c_s_app/cars.html', {'cars': search_results, 'top_form': top_form,
+#                                                          'cars_reg': cars_reg})
+
 class CarRegistryView(View):
     def get(self, request):
         top_form = TopBarSearchForm()  # , 'top_form': top_form
-        cars = Generation.objects.all()
-        return render(request, 'c_s_app/cars.html', {'cars': cars, 'top_form': top_form})
+        cars = Mark.objects.all()
+        return render(request, 'c_s_app/cars.html', {
+                                                     'cars': cars,
+                                                     'top_form': top_form,
+                                                     })
+
+
+class ModelRegistryView(View):
+    def get(self, request, mark_id):
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        cars = Model.objects.all().filter(mark_id=mark_id).order_by('name')
+        return render(request, 'c_s_app/models.html', {
+                                                     'cars': cars,
+                                                     'top_form': top_form,
+                                                     })
+
+
+class GenRegistryView(View):
+    def get(self, request, model_id):
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        cars = Generation.objects.all().filter(model_id=model_id).order_by('name')
+        return render(request, 'c_s_app/gens.html', {
+                                                     'cars': cars,
+                                                     'top_form': top_form,
+                                                     })
