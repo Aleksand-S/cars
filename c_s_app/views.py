@@ -87,7 +87,7 @@ class CamerasRequest(View):
             def get_url(cam_id_request, start_request, finish_request):
                 login = 'api'
                 password = '1iGcg/AxRYPVAYRoasddSD9aKZCFdYT+yVphmSKtQ'
-                url_address = 'http://10.32.2.24:3030/archive'
+                url_address = 'http://10.32.2.15:3030/archive'
 # ------------------------------ block to work with real API -----------------------------------------------------------
                 api_request = requests.get(url_address, auth=HTTPDigestAuth(login, password),
                                            params={'id': cam_id_request, 'start': start_request, 'end': finish_request})
