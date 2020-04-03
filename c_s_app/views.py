@@ -147,7 +147,10 @@ class CamerasRequestProgress(View):
 
 class RequestResultView(View):
     def get(self, request, request_id):
-        request_id = 51  # пока для тестирования берем только Request pk=51
+        if request_id == 74:
+            pass
+        else:
+            request_id = 51  # пока для тестирования берем только Request pk=51
         request_obj = get_object_or_404(Request, pk=request_id)
         results_objs = request_obj.resultdeepstream_set.all().order_by('pk')
         top_form = TopBarSearchForm()  # , 'top_form': top_form

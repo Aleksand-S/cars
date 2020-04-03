@@ -5182,8 +5182,6 @@ COPY public.c_s_app_model (id, name, mark_id) FROM stdin;
 --
 
 COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
-3	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
-4	2006-11-01 15:30:00+01	2006-11-02 15:31:00+01	2020-03-11 12:10:43.16513+01
 47	2020-03-16 01:00:00+01	2020-03-18 00:59:00+01	2020-03-20 08:49:15.21664+01
 48	2020-03-16 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:52:02.192108+01
 49	2020-03-14 01:00:00+01	2020-03-17 00:59:00+01	2020-03-20 08:53:44.834651+01
@@ -5207,6 +5205,13 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 67	2020-03-16 11:00:00+01	2020-03-16 12:00:00+01	2020-03-25 17:04:28.971423+01
 68	2020-03-17 01:00:00+01	2020-03-18 00:59:00+01	2020-03-25 17:05:13.890058+01
 69	2020-03-20 14:00:00+01	2020-03-20 15:00:00+01	2020-03-25 17:12:40.101171+01
+70	2020-03-16 01:00:00+01	2020-03-16 02:00:00+01	2020-03-30 11:38:33.831391+02
+71	2020-03-24 15:00:00+01	2020-03-24 16:00:00+01	2020-03-31 09:51:23.072375+02
+72	2020-03-26 14:00:00+01	2020-03-26 15:00:00+01	2020-03-31 11:16:05.225459+02
+73	2020-03-26 15:00:00+01	2020-03-26 16:00:00+01	2020-03-31 14:52:04.354963+02
+74	2020-03-30 16:00:00+02	2020-03-30 17:00:00+02	2020-03-31 15:02:30.451006+02
+75	2020-04-01 13:00:00+02	2020-04-01 14:00:00+02	2020-04-02 11:59:57.841956+02
+76	2020-04-01 14:00:00+02	2020-04-01 15:00:00+02	2020-04-02 12:00:42.627796+02
 \.
 
 
@@ -5215,6 +5220,15 @@ COPY public.c_s_app_request (id, start, finish, request_time) FROM stdin;
 --
 
 COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin;
+133	\N	6	70
+134	\N	6	71
+135	\N	7	71
+136	\N	8	71
+137	\N	8	72
+141	rtsp://10.32.2.31:554/openUrl/7UUQm08?beginTime=20200330T170000&endTime=20200330T180000&playBackMode=1	8	74
+143	rtsp://10.32.2.31:554/openUrl/7V1EJ7G?beginTime=20200330T170000&endTime=20200330T180000&playBackMode=1	10	74
+142	rtsp://10.32.2.31:554/openUrl/7V0eJtm?beginTime=20200330T170000&endTime=20200330T180000&playBackMode=1	9	74
+144	\N	6	75
 85	\N	6	47
 86	\N	6	48
 87	\N	6	49
@@ -5263,6 +5277,10 @@ COPY public.c_s_app_requestcameraurl (id, url, camera_id, request_id) FROM stdin
 129	rtsp://10.32.2.31:554/openUrl/i1R03hC?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	7	69
 130	rtsp://10.32.2.31:554/openUrl/i2lWksE?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	10	69
 132	rtsp://10.32.2.31:554/openUrl/i2czzaw?beginTime=20200320T150000&endTime=20200320T160000&playBackMode=1	8	69
+138	rtsp://10.32.2.31:554/openUrl/nFTqfgA?beginTime=20200326T160000&endTime=20200326T170000&playBackMode=1	6	73
+139	rtsp://10.32.2.31:554/openUrl/nGVzAFa?beginTime=20200326T160000&endTime=20200326T170000&playBackMode=1	7	73
+140	rtsp://10.32.2.31:554/openUrl/nH8UJMc?beginTime=20200326T160000&endTime=20200326T170000&playBackMode=1	8	73
+145	rtsp://10.32.2.31:554/openUrl/WziaVpu?beginTime=20200401T150000&endTime=20200401T160000&playBackMode=1	6	76
 \.
 
 
@@ -5407,6 +5425,51 @@ COPY public.c_s_app_resultdeepstream (id, "timestamp", car_number, car_probabili
 408	2020-03-17 11:03:16+01	AI3971EA	91	images/4.png	7	51	videos/0_03.mp4	80	1	730
 397	2020-03-17 11:03:00+01	AI????BH	94	images/4.png	7	51	videos/0_03.mp4	80	1	1430
 366	2020-03-17 11:02:08+01	AA9306MB	91	images/4.png	7	51	videos/0_03.mp4	77	3	1350
+478	2020-03-30 18:00:02+02	\N	\N	\N	10	74	\N	\N	14	\N
+479	2020-03-30 18:00:02+02	\N	\N	\N	10	74	\N	\N	1	\N
+480	2020-03-30 18:00:03+02	\N	\N	\N	10	74	\N	\N	2	513
+481	2020-03-30 18:00:03+02	\N	\N	\N	10	74	\N	\N	14	1908
+482	2020-03-30 18:00:05+02	\N	\N	\N	10	74	\N	\N	3	2095
+483	2020-03-30 18:00:05+02	\N	\N	\N	10	74	\N	\N	14	\N
+484	2020-03-30 18:00:11+02	\N	\N	\N	10	74	\N	\N	14	\N
+485	2020-03-30 18:00:11+02	\N	\N	\N	10	74	\N	\N	1	\N
+486	2020-03-30 18:00:12+02	\N	\N	\N	10	74	\N	\N	14	\N
+487	2020-03-30 18:00:15+02	\N	\N	\N	10	74	\N	\N	4	\N
+488	2020-03-30 18:00:16+02	\N	\N	\N	10	74	\N	\N	5	\N
+489	2020-03-30 18:00:16+02	\N	\N	\N	10	74	\N	\N	5	\N
+490	2020-03-30 18:00:21+02	\N	\N	\N	10	74	\N	\N	1	\N
+491	2020-03-30 18:00:21+02	\N	\N	\N	10	74	\N	\N	5	\N
+492	2020-03-30 18:00:41+02	\N	\N	\N	10	74	\N	\N	14	376
+493	2020-03-30 18:00:42+02	\N	\N	\N	10	74	\N	\N	1	\N
+494	2020-03-30 18:00:42+02	\N	\N	\N	10	74	\N	\N	14	\N
+495	2020-03-30 18:00:44+02	\N	\N	\N	10	74	\N	\N	14	\N
+496	2020-03-30 18:00:45+02	\N	\N	\N	10	74	\N	\N	1	2038
+497	2020-03-30 18:00:46+02	\N	\N	\N	10	74	\N	\N	14	1526
+498	2020-03-30 18:00:46+02	\N	\N	\N	10	74	\N	\N	6	\N
+499	2020-03-30 18:00:46+02	\N	\N	\N	10	74	\N	\N	5	\N
+500	2020-03-30 18:00:50+02	\N	\N	\N	10	74	\N	\N	2	1429
+501	2020-03-30 18:00:50+02	\N	\N	\N	10	74	\N	\N	14	\N
+502	2020-03-30 18:00:54+02	\N	\N	\N	10	74	\N	\N	5	\N
+503	2020-03-30 18:01:02+02	\N	\N	\N	10	74	\N	\N	14	1845
+504	2020-03-30 18:01:09+02	\N	\N	\N	10	74	\N	\N	14	\N
+505	2020-03-30 18:01:09+02	\N	\N	\N	10	74	\N	\N	5	\N
+506	2020-03-30 18:01:12+02	\N	\N	\N	10	74	\N	\N	14	\N
+507	2020-03-30 18:01:15+02	\N	\N	\N	10	74	\N	\N	14	\N
+508	2020-03-30 18:01:20+02	\N	\N	\N	10	74	\N	\N	4	\N
+509	2020-03-30 18:01:20+02	\N	\N	\N	10	74	\N	\N	5	\N
+510	2020-03-30 18:01:21+02	\N	\N	\N	10	74	\N	\N	14	\N
+511	2020-03-30 18:01:23+02	\N	\N	\N	10	74	\N	\N	5	\N
+512	2020-03-30 18:01:24+02	\N	\N	\N	10	74	\N	\N	5	\N
+513	2020-03-30 18:01:25+02	\N	\N	\N	10	74	\N	\N	5	\N
+514	2020-03-30 18:01:26+02	\N	\N	\N	10	74	\N	\N	14	\N
+515	2020-03-30 18:01:26+02	\N	\N	\N	10	74	\N	\N	14	\N
+516	2020-03-30 18:01:28+02	\N	\N	\N	10	74	\N	\N	5	\N
+517	2020-03-30 18:01:30+02	\N	\N	\N	10	74	\N	\N	14	\N
+518	2020-03-30 18:01:30+02	\N	\N	\N	10	74	\N	\N	14	\N
+519	2020-03-30 18:01:35+02	\N	\N	\N	10	74	\N	\N	14	\N
+520	2020-03-30 18:01:35+02	\N	\N	\N	10	74	\N	\N	3	\N
+521	2020-03-30 18:01:35+02	\N	\N	\N	10	74	\N	\N	5	\N
+522	2020-03-30 18:01:43+02	\N	\N	\N	10	74	\N	\N	14	\N
 \.
 
 
@@ -5601,21 +5664,21 @@ SELECT pg_catalog.setval('public.c_s_app_model_id_seq', 3948, true);
 -- Name: c_s_app_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 69, true);
+SELECT pg_catalog.setval('public.c_s_app_request_id_seq', 76, true);
 
 
 --
 -- Name: c_s_app_requestcameraurl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 132, true);
+SELECT pg_catalog.setval('public.c_s_app_requestcameraurl_id_seq', 145, true);
 
 
 --
 -- Name: c_s_app_resultdeepstream_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.c_s_app_resultdeepstream_id_seq', 411, true);
+SELECT pg_catalog.setval('public.c_s_app_resultdeepstream_id_seq', 522, true);
 
 
 --
