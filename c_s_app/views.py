@@ -14,6 +14,7 @@ from django.db.models import Q
 
 from c_s_app.forms import *
 from c_s_app.models import *
+from c_s_app.pylib.video_recorder import recorder
 
 
 def get_cams_list():
@@ -110,11 +111,15 @@ class CamerasRequest(View):
 #                         if True:
 # ------------------------------ end of block to test without real API ------------------------------------------------------------
 
-                # URL record to DB
+                        # URL save to DB
                         camera_obj = Camera.objects.get(cam_id=cam_id_request)
                         obj_for_url = RequestCameraURL.objects.get(request=request_object, camera=camera_obj)
                         obj_for_url.url = url
                         obj_for_url.save()
+
+                        # saving video to file
+                        if url != '':
+                            recorder(url)
 
                     # отправка URL в DeepStream
                     # здесь будет redirect на страницу с результатом обработки через DeepStream

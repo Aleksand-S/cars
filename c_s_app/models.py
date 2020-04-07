@@ -21,11 +21,11 @@ class Mark(models.Model):
 
 
 class GenerationList(models.Model):
-    name = models.CharField(max_length=16)
+    name = models.CharField(max_length=16, null=True)
 
 
 class Model(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32, null=True)
     mark = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True)
 
 
@@ -53,11 +53,7 @@ class ResultDeepstream(models.Model):
     timestamp = models.DateTimeField(null=True)
     car_number = models.CharField(max_length=16, null=True)
     car_obj = models.ForeignKey(Generation, on_delete=models.CASCADE, null=True)
-    # car_brand = models.CharField(max_length=32, null=True)
-    # car_model = models.CharField(max_length=32, null=True)
-    # car_generation = models.CharField(max_length=32, null=True)
     car_probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
-    # car_color = models.CharField(max_length=32, null=True)
     car_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
     color_probability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
     car_photo = models.ImageField(upload_to='images/', null=True)
