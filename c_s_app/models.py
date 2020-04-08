@@ -32,6 +32,7 @@ class Model(models.Model):
 class Generation(models.Model):
     model = models.ForeignKey(Model, on_delete=models.CASCADE, null=True)
     name = models.ForeignKey(GenerationList, on_delete=models.CASCADE, null=True)
+    path = models.FilePathField(path=None, null=True)
 
 
 class Request(models.Model):

@@ -34,6 +34,7 @@ urlpatterns = [
     path('cars/', CarRegistryView.as_view(), name='cars'),
     path('models/<int:mark_id>/', ModelRegistryView.as_view(), name='models'),
     path('generations/<int:model_id>/', GenRegistryView.as_view(), name='generations'),
+    path('car_images/<int:gen_id>/', GenPhotoView.as_view(), name='carimages'),
 
     path('ajax/progress/', progress),
     path('ajax/models', load_models),

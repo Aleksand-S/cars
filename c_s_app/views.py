@@ -1,4 +1,5 @@
 from time import sleep
+import os
 
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
@@ -11,9 +12,12 @@ import requests
 import schedule
 import xlwt
 from django.db.models import Q
+import glob
 
 from c_s_app.forms import *
 from c_s_app.models import *
+from c_s_app.pylib.data_to_DB import data_to_db
+from c_s_app.pylib.work_with_fields_db import *
 from c_s_app.pylib.video_recorder import recorder
 
 
@@ -345,7 +349,49 @@ class GenRegistryView(View):
     def get(self, request, model_id):
         top_form = TopBarSearchForm()  # , 'top_form': top_form
         cars = Generation.objects.all().filter(model_id=model_id).order_by('name')
+
+        path_cars = "/home/alex/cars/"
+        files_dict = {}
+        for car in cars:
+            if car.path is not None:
+
+                dict_key = car.path
+                dict_value = []
+                car_imgs = glob.glob("/home/alex/cars/" + car.path + '/*.png')
+                for element in car_imgs:
+                    file_name = element.split('/')[-1]
+                    if '.' in file_name:  # filtering names with '.' (deleting folders from list)
+                        dict_value.append(file_name)
+                print(dict_key, dict_value)
+                files_dict[dict_key] = dict_value
+                # folder_files_list.append(files_dict)
+
+
         return render(request, 'c_s_app/gens.html', {
                                                      'cars': cars,
                                                      'top_form': top_form,
+                                                     'files': files_dict
+                                                     })
+
+class GenPhotoView(View):
+
+    def get(self, request, gen_id):
+        top_form = TopBarSearchForm()  # , 'top_form': top_form
+        folder_name = get_object_or_404(Generation, pk=gen_id).path
+
+        path1 = os.path.abspath(__file__).split('/')
+        base_path = '/'.join(path1[:3]) + '/cars/'  # example: /home/alex/
+
+        images = []
+        if folder_name is not None:
+            car_imgs = glob.glob(base_path + folder_name + '/*')
+            for element in car_imgs:
+                file_name = element.split('/')[-1]
+                if '.' in file_name:  # filtering names with '.' (deleting folders from list)
+                    images.append(folder_name + '/' + file_name)
+
+
+        return render(request, 'c_s_app/car_images.html', {
+                                                     'top_form': top_form,
+                                                    'images': images
                                                      })
