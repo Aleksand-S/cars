@@ -1,5 +1,5 @@
 {% extends 'c_s_app/index.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block styles_for_currnent_page %}
     {% include 'c_s_app/bases/styles_for_currnent_page.html' %}
@@ -20,6 +20,35 @@
                                         </span>
                 <span class="text">Поиск автомобилей по параметрам</span>
             </a>
+
+            <form method="post" enctype="multipart/form-data" style="display: inline-block; float: right">
+                {% csrf_token %}
+                <input type="file" name="myfile" multiple required accept=".png, .jpg, .jpeg, .PNG, .JPEG, .JPG">
+
+{#                <a class="btn btn-secondary btn-icon-split">#}
+{#                                                        <span class="icon text-white-50">#}
+{#                                                            <i class="fas fa-file-image"></i>#}
+{#                                                        </span>#}
+{#                    <input type="file" name="myfile" multiple required accept=".png, .jpg, .jpeg, .PNG, .JPEG, .JPG">#}
+{#                </a>#}
+
+
+
+
+
+
+                {# <button type="submit">Upload</button> #}
+                <a class="btn btn-secondary btn-icon-split" >
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-download"></i>
+                                                        </span>
+                    <input type="submit" value="Загрузить">
+                </a>
+
+
+
+
+            </form>
 
         </div>
 

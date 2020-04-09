@@ -1,8 +1,7 @@
 from time import sleep
 import os
+from django.core.files.storage import FileSystemStorage
 
-from django.views.generic import ListView, CreateView
-from django.urls import reverse_lazy
 from requests.auth import HTTPDigestAuth
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -254,7 +253,6 @@ def export_results_xls(request, request_id):
     font_style = xlwt.XFStyle()
 
     # for testing we get all objects with request_id=27
-# !!!!!!!!! ИСПРАВИТЬ ПОИСК, Т.К. ИЗМЕНИЛАСЬ ТАБЛИЦА В БД
     rows = ResultDeepstream.objects.filter(request_id=request_id).values_list('pk', 'timestamp', 'camera_id', 'camera__address', 'car_number',
                                                                       # 'car_brand', 'car_model', 'car_generation',
                                                                       'car_obj__model__mark__name', 'car_obj__model__name', 'car_obj__name__name',
@@ -380,7 +378,7 @@ class GenPhotoView(View):
         folder_name = get_object_or_404(Generation, pk=gen_id).path
 
         path1 = os.path.abspath(__file__).split('/')
-        base_path = '/'.join(path1[:3]) + '/cars/'  # example: /home/alex/
+        base_path = '/'.join(path1[:3]) + '/cars/'  # example: /home/alex/cars/
 
         images = []
         if folder_name is not None:
@@ -395,3 +393,17 @@ class GenPhotoView(View):
                                                      'top_form': top_form,
                                                     'images': images
                                                      })
+
+    def post(self, request, gen_id):
+        myfile = request.FILES.getlist('myfile')
+        folder_name = Generation.objects.get(pk=gen_id).path
+
+        path1 = os.path.abspath(__file__).split('/')
+        folder_path = '/'.join(path1[:3]) + '/cars/' + folder_name  # example: /home/alex/cars/
+        fs = FileSystemStorage(location=folder_path)
+
+        for file in myfile:
+            filename = fs.save(file.name, file)
+
+        url_link = '/car_images/' + str(gen_id)
+        return redirect(url_link)
