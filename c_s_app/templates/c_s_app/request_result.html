@@ -47,6 +47,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
@@ -99,6 +100,7 @@
                                     <td>
 
                                         <a class="myLinkModal" href="#">фото</a>
+                                        {% if result.car_photo != None %}
                                         <div class="myModal">
                                             <p><img src="/media/{{ result.car_photo }}" alt="изображение" width="650"></p>
                                             <span class="close myModal__close">ₓ</span>
@@ -112,11 +114,13 @@
 
                                         </div>
                                         <div class="myOverlay"></div>
+                                        {% endif %}
                                     </td>
 
                                     <td>
 
                                         <a class="myLinkModal" href="#">видео</a>
+                                        {% if result.car_video != None %}
                                         <div class="myModal videoModal">
                                             <p>
                                                 <video width='650' controls>
@@ -135,7 +139,7 @@
 
                                         </div>
                                         <div class="myOverlay"></div>
-
+                                        {% endif %}
 
                                     </td>
                                 </tr>
@@ -147,8 +151,18 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block js_tables %}
     {% include 'c_s_app/bases/js_plugs.html' %}
+{% endblock %}
+
+{% block for_alert %}
+    {% if status == 1 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => alert("{{ message }}"));
+        {#alert( '{{ message }}' );#}
+    </script>
+    {% endif %}
 {% endblock %}

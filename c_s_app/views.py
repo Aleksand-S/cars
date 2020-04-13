@@ -147,24 +147,34 @@ class CamerasRequestProgress(View):
         # когда все ссылки обработаны на 100%, то перенаправляет на ссылку с результатом
         form = CamsRequestForm()
         cameras_request_obj = get_object_or_404(Request, pk=request_id)
-        progress = 0
+        progr = 0
         return render(request, 'c_s_app/request_progress.html', {'cameras_request_obj': cameras_request_obj,
                                                                  'form': form,
-                                                                 'progress': progress,
+                                                                 'progress': progr,
                                                                  'top_form': top_form})
 
 class RequestResultView(View):
     def get(self, request, request_id):
-        if request_id == 74:
-            pass
-        else:
-            request_id = 51  # пока для тестирования берем только Request pk=51
+        # if request_id == 74:
+        #     pass
+        # else:
+        #     request_id = 51  # пока для тестирования берем только Request pk=51
+
+        message = 'Данные в процессе обработки'
+        status = 0
+        cams = RequestCameraURL.objects.all().filter(request_id=request_id)
+        for cam in cams:
+            if int(cam.recognition_progress) < 100:
+                status = 1
+                break
+
+
         request_obj = get_object_or_404(Request, pk=request_id)
         results_objs = request_obj.resultdeepstream_set.all().order_by('pk')
         top_form = TopBarSearchForm()  # , 'top_form': top_form
         return render(request,
                       'c_s_app/request_result.html',
-                      {'request_results': results_objs, 'request_obj': request_obj, 'top_form': top_form})
+                      {'request_results': results_objs, 'request_obj': request_obj, 'top_form': top_form, 'message': message, 'status': status})
 
 
 class RequestsListView(View):
@@ -370,6 +380,7 @@ class GenRegistryView(View):
                                                      'top_form': top_form,
                                                      'files': files_dict
                                                      })
+
 
 class GenPhotoView(View):
 

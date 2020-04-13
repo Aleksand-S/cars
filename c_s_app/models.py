@@ -46,6 +46,7 @@ class RequestCameraURL(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
     camera = models.ForeignKey(Camera, on_delete=models.CASCADE)
     url = models.CharField(max_length=256, null=True)
+    recognition_progress = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True, default=0)
 
 
 class ResultDeepstream(models.Model):

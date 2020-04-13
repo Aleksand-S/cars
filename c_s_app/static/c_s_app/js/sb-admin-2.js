@@ -78,6 +78,8 @@
   let request_pk = $('#request_id').text();
   let checkProcess = true;
 
+  if (progressField.length > 0) {
+    console.log('TETETETETETETET')
   while (checkProcess) {
     if ((numbProgress >= 0) && (numbProgress <= 100)){
       //  запрос на ajax, получаем прогресс = numbProgress, вставляем в поле
@@ -109,6 +111,9 @@
     let linkResult = '<a href="/request_result/' + request_pk + '">Запрос обработан</a>'
     $('#progress').append(linkResult)  // вместо index вставить сылку с ID запроса
   }, 2000);
+}
+
+
 
 
   // $(document).ready(function() {
@@ -153,17 +158,6 @@
 // --------------------------- Карусель начало -------------------------------
 
 // --------------------------- Карусель конец -------------------------------
-
-
-
-
-
-
-
-
-
-
-
 
 
 
