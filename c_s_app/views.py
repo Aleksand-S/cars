@@ -23,7 +23,7 @@ from c_s_app.pylib.video_recorder import recorder
 def get_cams_list():
     login = 'api'
     password = r'1iGcg/AxRYPVAYRoasddSD9aKZCFdYT+yVphmSKtQ'
-    url_address = 'http://10.32.2.24:3030/list'
+    url_address = 'http://10.32.2.24:3030/list'  # check IP before start
     api_request = requests.get(url_address, auth=HTTPDigestAuth(login, password))
 
     if api_request.status_code == 200:
@@ -97,6 +97,7 @@ class CamerasRequest(View):
                                            params={'id': cam_id_request, 'start': start_request, 'end': finish_request})
                 print(api_request.url)
                 print(start_request, finish_request)
+                print(api_request.status_code)
 
                 if api_request.status_code == 200:
                     api_response = api_request.json()  # response converted to Python dictionary

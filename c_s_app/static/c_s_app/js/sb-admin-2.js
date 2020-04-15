@@ -79,7 +79,6 @@
   let checkProcess = true;
 
   if (progressField.length > 0) {
-    console.log('TETETETETETETET')
   while (checkProcess) {
     if ((numbProgress >= 0) && (numbProgress <= 100)){
       //  запрос на ajax, получаем прогресс = numbProgress, вставляем в поле
